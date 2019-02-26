@@ -2,7 +2,6 @@ import React from "react";
 import Helmet from "react-helmet";
 
 export default function SchemaOrg({ organization }) {
-  console.log(organization);
   const baseSchema = [
     {
       "@context": "http://schema.org",
