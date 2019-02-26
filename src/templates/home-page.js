@@ -124,7 +124,7 @@ export const homePageQuery = graphql`
         servicesArea {
           heading
           blurb
-          projects {
+          services {
             iconClasses
             serviceName
             blurb
