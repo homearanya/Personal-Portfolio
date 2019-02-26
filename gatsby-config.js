@@ -29,6 +29,28 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://www.carloswevdev.com",
+        sitemap: "https://www.carloswebdev/sitemap.xml",
+        policy: [{ userAgent: "*", allow: "/" }]
+      }
+    },
+    {
+      resolve: `gatsby-plugin-google-tagmanager`,
+      options: {
+        id: "GTM-WQT85KS",
+
+        // Include GTM in development.
+        // Defaults to false meaning GTM will only be loaded in production.
+        includeInDevelopment: false
+
+        // Specify optional GTM environment details.
+        // gtmAuth: "YOUR_GOOGLE_TAGMANAGER_ENVIROMENT_AUTH_STRING",
+        // gtmPreview: "YOUR_GOOGLE_TAGMANAGER_ENVIROMENT_PREVIEW_NAME",
+      }
+    },
+    {
       resolve: "gatsby-plugin-web-font-loader",
       options: {
         google: {
