@@ -12,9 +12,10 @@ const StyledScrollTo = styled(ScrollTo)`
 `;
 
 const StyledSpan = styled.span`
-  color: ${props => (props.isSticky ? "#222" : "#fff")};
+  color: #fff;
   font-size: 20px;
   @media (min-width: 992px) {
+    color: ${props => (props.isSticky ? "#222" : "#fff")};
     font-size: 24px;
   }
 `;
