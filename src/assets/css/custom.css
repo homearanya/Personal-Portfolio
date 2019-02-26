@@ -74,3 +74,17 @@
 /* .collapse:not(.show) {
     display: block!important;
 } */
+
+
+/* Classes for ParticlesJS */
+
+.particles-wrapper {
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.particles-canvas {
+    z-index: 10;
+}

@@ -24,12 +24,6 @@ const StyledSection = styled.section`
   }
 `;
 
-const ParticlesWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
-
 const ScrollWrapper = styled.div`
   :hover {
     cursor: pointer;
@@ -54,20 +48,20 @@ export default function Header(props) {
         backgroundImage={heroImage.image.childImageSharp.fluid.src}
         backgroundImageMobile={heroImageMobile.image.childImageSharp.fluid.src}
       >
-        <ParticlesWrapper>
-          <Particles
-            params={{
-              particles: {
-                size: { value: 5, random: true },
-                line_linked: { opacity: 0.5, width: 1 },
-                interactivity: {
-                  onhover: { enable: true, mode: "repulse" },
-                  detect_on: "canvas"
-                }
+        <Particles
+          className="particles-wrapper"
+          canvasClassName="particles-canvas"
+          params={{
+            particles: {
+              size: { value: 5, random: true },
+              line_linked: { opacity: 0.5, width: 1 },
+              interactivity: {
+                onhover: { enable: true, mode: "grab" },
+                detect_on: "canvas"
               }
-            }}
-          />
-        </ParticlesWrapper>
+            }
+          }}
+        />
         <div className="container h-100">
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col-12 col-lg-8 home-content text-center">
