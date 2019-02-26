@@ -18,10 +18,10 @@ servicesArea:
   blurb: Cost-effective, quality, performing sites
   services:
     - iconClasses: "fas fa-laptop"
-      serviceName: "Modern-looking Websites"
+      serviceName: "Modern-looking"
       blurb: "Choose a modern template that has the feel and look best suited for your business and I’ll take care of the rest."
     - iconClasses: "fas fa-fighter-jet"
-      serviceName: "Fast Loading Sites"
+      serviceName: "Fast Loading"
       blurb: "I use the latest tools to make sure you get the most optimised website. They will load in the blink of an eye.  "
     - iconClasses: "fas fa-arrows-alt"
       serviceName: "Fully Reponsive"
