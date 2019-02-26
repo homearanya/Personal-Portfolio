@@ -114,27 +114,17 @@ export const homePageQuery = graphql`
             alt
             image {
               childImageSharp {
-                fluid(maxWidth: 540 {
+                fluid(maxWidth: 540) {
                   ...GatsbyImageSharpFluid
                 }
               }
             }
           }
         }
-        portfolioArea {
+        servicesArea {
           heading
           blurb
           projects {
-            projectImage {
-              alt
-              image {
-                childImageSharp {
-                  fluid(maxWidth: 500) {
-                    ...GatsbyImageSharpFluid
-                  }
-                }
-              }
-            }
             iconClasses
             serviceName
             blurb
