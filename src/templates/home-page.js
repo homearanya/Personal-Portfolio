@@ -121,7 +121,7 @@ export const homePageQuery = graphql`
             }
           }
         }
-        servicesArea {
+        portfolioArea {
           heading
           blurb
           projects {
