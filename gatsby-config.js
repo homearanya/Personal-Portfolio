@@ -95,8 +95,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: "Alistair Mork-Chadwick · Counselling Psychologist",
-        short_name: "alistair",
+        name: "Carlos Gonzalez · Web Developer",
+        short_name: "carlos",
         start_url: "/",
         background_color: "#6b37bf",
         theme_color: "#6b37bf",
