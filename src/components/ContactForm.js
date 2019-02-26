@@ -160,7 +160,7 @@ export class ContactForm extends Component {
     var xhr = new XMLHttpRequest();
     xhr.open(
       "POST",
-      "https://rx75h4tu7e.execute-api.us-east-1.amazonaws.com/dev/static-site-mailer-carlos-web",
+      "https://husvage1fg.execute-api.us-east-1.amazonaws.com/prod/static-site-mailer-carlos-web",
       true
     );
     xhr.setRequestHeader("Accept", "application/json; charset=utf-8");
