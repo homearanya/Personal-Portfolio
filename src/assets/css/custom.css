@@ -1,0 +1,76 @@
+/* SlideUp animation styles */
+
+.slideUp-enter {
+    height: 0 !important;
+}
+
+.slideUp-enter-active {
+    height: 100% !important;
+    transition: all 300ms ease-in !important;
+}
+
+.slideUp-exit {
+    height: 100% !important;
+}
+
+.slideUp-exit-active {
+    height: 0 !important;
+    transition: all 300ms ease-in !important;
+}
+
+
+/* Sidebar animation styles */
+
+.SlideInFromRight-enter {
+    right: -320px!important;
+    box-shadow: none!important;
+}
+
+.SlideInFromRight-enter-active,
+.SlideInFromRight-enter-done {
+    right: 0!important;
+    box-shadow: 0 0px 7px 0px rgba(0, 0, 0, 0.2)!important;
+    transition: all 300ms ease-in-out !important;
+}
+
+.SlideInFromRight-exit {
+    right: 0!important;
+    box-shadow: 0 0px 7px 0px rgba(0, 0, 0, 0.2)!important;
+}
+
+.SlideInFromRight-exit-active {
+    right: -320px!important;
+    box-shadow: none!important;
+    transition: all 300ms ease-in-out !important;
+}
+
+
+/* Mobile Menu animation styles */
+
+.SlideInFromTop-enter {
+    /* display: none; */
+    height: 0!important;
+}
+
+.SlideInFromTop-enter-active,
+.SlideInFromTop-enter-done {
+    /* display: block; */
+    height: 300px!important;
+    transition: all 300ms ease-in-out !important;
+}
+
+.SlideInFromTop-exit {
+    /* display: block; */
+    height: 300px!important;
+}
+
+.SlideInFromTop-exit-active {
+    /* display: none; */
+    height: 0!important;
+    transition: all 300ms ease-in-out !important;
+}
+
+
+/* .collapse:not(.show) {
+    display: block!important;
+} */

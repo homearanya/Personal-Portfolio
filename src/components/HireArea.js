@@ -1,0 +1,34 @@
+import React from "react";
+import styled from "styled-components";
+
+import Button from "./Button";
+
+const StyledSection = styled.section`
+  background-image: ${props => `url(${props.backgroundImage})`};
+`;
+
+export default function HireArea(props) {
+  const { heading, blurb, hireImage } = props.hireArea;
+  return (
+    <StyledSection
+      className="single-section section-fixed-bg section-overlay-bg hire-area"
+      id="hire-area"
+      backgroundImage={hireImage.image.childImageSharp.fluid.src}
+    >
+      <div className="container">
+        <div className="row text-center">
+          <div className="col-12">
+            <h1 className="hire-title">{heading}</h1>
+            <p className="hire-description">{blurb}</p>
+            <Button
+              whereTo="#contact-area"
+              text="Hire Me"
+              color="#222"
+              backgroundColor="#fff"
+            />
+          </div>
+        </div>
+      </div>
+    </StyledSection>
+  );
+}
