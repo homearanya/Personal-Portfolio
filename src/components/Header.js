@@ -8,14 +8,15 @@ import Navbar from "./Navbar";
 import Button from "./Button";
 
 const StyledSection = styled.section`
-  background-image: ${props => `url(${props.backgroundImage})`};
-  background-position: 65% 0;
-
   &&& {
+    background-image: ${props => `url(${props.backgroundImageMobile})`};
+    background-position: right center;
     ::before {
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.3);
     }
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
+      background-image: ${props => `url(${props.backgroundImage})`};
+      background-position: 65% 0;
       ::before {
         background-color: rgba(0, 0, 0, 0.3);
       }
@@ -36,7 +37,7 @@ const ScrollWrapper = styled.div`
 `;
 
 export default function Header(props) {
-  const { heroImage, sidebarAvatarImage } = props.headerArea;
+  const { heroImage, heroImageMobile, sidebarAvatarImage } = props.headerArea;
   return (
     <header>
       <Navbar
@@ -51,6 +52,7 @@ export default function Header(props) {
         className="header-area section-fixed-bg section-overlay-bg"
         id="header-area"
         backgroundImage={heroImage.image.childImageSharp.fluid.src}
+        backgroundImageMobile={heroImageMobile.image.childImageSharp.fluid.src}
       >
         <ParticlesWrapper>
           <Particles

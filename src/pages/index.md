@@ -6,6 +6,9 @@ headerArea:
   heroImage:
     image: "/img/hero-image.jpg"
     alt: Carlos Gonzalez in the Drakensberg Mountains of South Africa
+  heroImageMobile:
+    image: "/img/hero-image-small.jpg"
+    alt: Carlos Gonzalez in the Drakensberg Mountains of South Africa
   sidebarAvatarImage:
     image: "/img/carlos-gonzalez-sidebar.jpg"
     alt: Carlos Gonzalez

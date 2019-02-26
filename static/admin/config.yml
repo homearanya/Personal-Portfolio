@@ -48,6 +48,22 @@ collections:
                       widget: text,
                       hint: "Please inform. Important for SEO",
                     }
+              - label: Hero Image For Mobile
+                name: heroImageMobile
+                widget: object
+                fields:
+                  - {
+                      label: Image,
+                      name: image,
+                      widget: image,
+                      hint: "size 1920 x 924",
+                    }
+                  - {
+                      label: Title,
+                      name: alt,
+                      widget: text,
+                      hint: "Please inform. Important for SEO",
+                    }
               - label: Sidebar Avatar Image
                 name: sidebarAvatarImage
                 widget: object

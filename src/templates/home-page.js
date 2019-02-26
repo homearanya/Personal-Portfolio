@@ -98,6 +98,16 @@ export const homePageQuery = graphql`
               }
             }
           }
+          heroImageMobile {
+            alt
+            image {
+              childImageSharp {
+                fluid(maxWidth: 992) {
+                  ...GatsbyImageSharpFluid_noBase64
+                }
+              }
+            }
+          }
           sidebarAvatarImage {
             alt
             image {
