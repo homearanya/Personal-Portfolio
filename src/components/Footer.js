@@ -67,7 +67,7 @@ export default function Footer() {
                 </IconWrapper>
               </a>
               <a
-                href="https://twitter.com/CarlosD32433232"
+                href="https://twitter.com/CGonzalezWebDev"
                 target="_blank"
                 rel="noopener noreferrer"
               >

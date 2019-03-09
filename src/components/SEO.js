@@ -18,7 +18,7 @@ export default function SEO(props) {
   return (
     <React.Fragment>
       {/* <Helmet key="app-head" titleTemplate={titleTemplate} defaultTitle={title}> */}
-      <Helmet key="app-head">
+      <Helmet key="app-head" defaultTitle={title}>
         <html lang="en" />
 
         <meta charSet="utf-8" />
