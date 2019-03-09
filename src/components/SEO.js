@@ -14,10 +14,11 @@ export default function SEO(props) {
     organization,
     siteUrl
   } = props.siteMetadata;
-  const titleTemplate = `%s · ${title}`;
+  // const titleTemplate = `%s · ${title}`;
   return (
     <React.Fragment>
-      <Helmet key="app-head" titleTemplate={titleTemplate} defaultTitle={title}>
+      {/* <Helmet key="app-head" titleTemplate={titleTemplate} defaultTitle={title}> */}
+      <Helmet key="app-head">
         <html lang="en" />
 
         <meta charSet="utf-8" />

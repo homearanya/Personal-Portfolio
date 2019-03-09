@@ -9,7 +9,10 @@ module.exports = {
   siteMetadata: {
     title: "Carlos Gonzalez · Web Developer",
     defaultTitle: "Carlos Gonzalez · Web Developer",
-    description: `Carlos Gonzalez is a web developer based in Howick, South Africa`,
+    description: `
+    Carlos Gonzalez is a web developer based in Howick, South Africa. 
+    His focus is on modern-looking, blazing-fast loading, SEO-ready sites.
+    `,
     canonicalUrl: "https://www.carloswebdev.com",
     image: "https://www.carloswebdev.com/img/carlos-gonzalez-about.jpg",
     author: {
