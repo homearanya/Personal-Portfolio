@@ -1,12 +1,15 @@
-# gatsby-starter-hello-world
-Starter with the bare essentials needed for a [Gatsby](https://www.gatsbyjs.org/) site.
+# Personal Portfolio
 
-Install this starter (assuming Gatsby is installed) by running from your CLI:
-```
-gatsby new gatsby-site https://github.com/gatsbyjs/gatsby-starter-hello-world
-```
+[www.carloswebdev.com](https://www.carloswebdev.com/)
 
-Or [view the live demo here](https://gatsby-starter-hello-world-demo.netlify.com/).
+This is a [Gatsby](https://www.gatsbyjs.org/) site.
 
-## Running in development
-`gatsby develop`
+For this project I purchased [Flexi's template on Theme Forest](https://themeforest.net/item/flexi-personal-portfolio-html5-template/22514193).
+
+I converted all the necessary HTML into JSX and used the existing styling that came with the template. I did some customizations with standard CSS but mostly through [Styled Components](https://www.styled-components.com/).
+
+The contact form logic is hosted on AWS. I used the [Serverless Framework](https://serverless.com/framework/) in combination with AWS's Lambda and EMS service. This is the tutorial I followed: [Building A Serverless Contact Form For Your Static Site](https://www.smashingmagazine.com/2018/05/building-serverless-contact-form-static-website/).
+
+The site has a headless CMS, in particular [Netlify CMS](https://www.netlifycms.org/). For this, I followed the docs on Gatsby's site: [Sourcing from Netlify CMS](https://www.gatsbyjs.org/docs/sourcing-from-netlify-cms/#sourcing-from-netlify-cms).
+
+The site is hosted for free in [Netlify](https://www.netlify.com/). Kudos to these guys.
