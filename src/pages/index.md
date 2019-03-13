@@ -69,6 +69,13 @@ portfolioArea:
       github: "https://github.com/homearanya/homearanya.github.io"
       siteUrl: "https://homearanya.github.io/"
       type: ReactJS
+    - projectImage:
+        image: "/img/www.spanafrican-adventures.co.za.jpg"
+        alt: "Spanafrican Adventures Website"
+      name: "Spanafrican Adventures"
+      github: ""
+      siteUrl: "https://www.spanafrican-adventures.co.za/"
+      type: WordPress
 contactArea:
   address: 15 Miller Street, Howick, 3290, South Africa
   phone: +27 76 459 9127

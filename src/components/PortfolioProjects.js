@@ -41,7 +41,7 @@ export default function PortfolioProjects(props) {
               <div className="overlay-content">
                 <h6 className="overlay-title">{project.name}</h6>
                 <div className="overlay-icons">
-                  <StyledAnchor
+                  {project.github && <StyledAnchor
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -49,8 +49,8 @@ export default function PortfolioProjects(props) {
                     <IconWrapper>
                       <i className="fab fa-github" />
                     </IconWrapper>
-                  </StyledAnchor>
-                  <StyledAnchor
+                  </StyledAnchor>}
+                  {project.siteUrl && <StyledAnchor
                     href={project.siteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -58,7 +58,7 @@ export default function PortfolioProjects(props) {
                     <IconWrapper>
                       <i className="fas fa-link" />
                     </IconWrapper>
-                  </StyledAnchor>
+                  </StyledAnchor>}
                 </div>
               </div>
             </StyledProject>
