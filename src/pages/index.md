@@ -53,7 +53,7 @@ portfolioArea:
         alt: "Alistair Mork-Chadwick Business Site"
       name: "Alistair Mork-Chadwick"
       github: "https://github.com/homearanya/alistair-psycologist"
-      siteUrl: "https:/www.alistairmork-chadwick.co.za/"
+      siteUrl: "https://www.alistairmork-chadwick.co.za/"
       type: "GatsbyJS"
     - projectImage:
         image: "/img/www.trails.co.za.jpg"
