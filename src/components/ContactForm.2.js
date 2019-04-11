@@ -13,6 +13,7 @@ export default function ContactForm() {
         <div className="row">
           <div className="col-12 col-md-6 form-group">
             <input
+              aria-label="Full Name"
               type="text"
               name="name"
               className="form-control"
@@ -23,6 +24,7 @@ export default function ContactForm() {
           </div>
           <div className="col-12 col-md-6 form-group">
             <input
+              aria-label="Email Address"
               type="email"
               name="email"
               className="form-control"
@@ -33,6 +35,7 @@ export default function ContactForm() {
           </div>
           <div className="col-12 form-group">
             <input
+              aria-label="Subject of Email"
               type="text"
               name="subject"
               className="form-control"
@@ -43,6 +46,7 @@ export default function ContactForm() {
           </div>
           <div className="col-12 form-group custom-margin">
             <textarea
+              aria-label="Text Area"
               name="message"
               className="form-control"
               id="contact-message"

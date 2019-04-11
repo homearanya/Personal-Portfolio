@@ -43,6 +43,7 @@ export class Sidebar extends Component {
           className="hamburger hamburger--slider is-active"
           type="button"
           onClick={this.props.toggleSidebar}
+          aria-label="Sidebar Menu"
         >
           <span className="hamburger-box">
             <span className="hamburger-inner" />

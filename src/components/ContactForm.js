@@ -272,6 +272,7 @@ export class ContactForm extends Component {
             <HoneypotWrapper>
               <div className="col-12 col-md-6 form-group">
                 <input
+                  aria-label="Full Name"
                   type="text"
                   name="name"
                   id="name"
@@ -284,6 +285,7 @@ export class ContactForm extends Component {
               </div>
               <div className="col-12 col-md-6 form-group">
                 <input
+                  aria-label="Email Address"
                   type="email"
                   name="reply_to"
                   id="reply_to"
@@ -296,6 +298,7 @@ export class ContactForm extends Component {
               </div>
               <div className="col-12 form-group">
                 <input
+                  aria-label="Subject of Email"
                   type="text"
                   name="subject"
                   id="subject"
@@ -308,6 +311,7 @@ export class ContactForm extends Component {
               </div>
               <div className="col-12 form-group custom-margin">
                 <textarea
+                  aria-label="Text Area"
                   rows="1"
                   cols="45"
                   name="message"
