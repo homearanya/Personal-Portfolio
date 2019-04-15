@@ -24,6 +24,31 @@ servicesArea:
         business and I’ll take care of the rest.
       iconClasses: fas fa-laptop
       serviceName: Modern-looking
+    - blurb: >-
+        I use the latest tools to make sure you get the most optimised website.
+        They will load in the blink of an eye.
+      iconClasses: fas fa-fighter-jet
+      serviceName: Fast Loading
+    - blurb: >-
+        Whether on desktop, tablet or smartphone, your site will look great.
+        You’ll be accessible from any device.
+      iconClasses: fas fa-arrows-alt
+      serviceName: Fully Reponsive
+    - blurb: >-
+        I follow the latest Google SEO guidelines so that your site will rank as
+        high as possible.
+      iconClasses: fas fa-search
+      serviceName: SEO Ready
+    - blurb: >-
+        Once online, I will take care of your website and ensure it’s always on.
+        I will be always be available for you.
+      iconClasses: fas fa-life-ring
+      serviceName: Full Support
+    - blurb: >-
+        Because my sites don’t need a database, you won’t need a web host.
+        They’ll be more secure. No expensive plugins needed.
+      iconClasses: fas fa-hand-holding-usd
+      serviceName: Low-Cost and Secured
 hireArea:
   blurb: Fancy an awesome new website? You found the right person.
   heading: Let's Work Together!
