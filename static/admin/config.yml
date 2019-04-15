@@ -111,9 +111,9 @@ collections:
                 name: serices
                 widget: list
                 fields:
-                  - {label: "Icon Classes", name: iconClasses, widget: string}
-                  - {label: "Service Name", name: serviceName, widget: string}
-                  - {label: "Blurb", name: blurb, widget: text}
+                  - {label: "Icon Classes", name: iconClasses, widget: string,}
+                  - {label: "Service Name", name: serviceName, widget: string,}
+                  - {label: "Blurb", name: blurb, widget: text,}
           - label: Hire Area
             name: hireArea
             widget: object
