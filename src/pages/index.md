@@ -54,21 +54,21 @@ portfolioArea:
       name: "Inspiring Leaders"
       github: "https://github.com/homearanya/inspiring-leaders"
       siteUrl: "https://www.inspiring-leaders.co.za/"
-      type: GatsbyJS
+      type: GatsbyJS-ReactJS
     - projectImage:
         image: "/img/www.alistairmork-chadwick.co.za.jpg"
         alt: "Alistair Mork-Chadwick Business Site"
       name: "Alistair Mork-Chadwick"
       github: "https://github.com/homearanya/alistair-psycologist"
       siteUrl: "https://www.alistairmork-chadwick.co.za/"
-      type: "GatsbyJS"
+      type: "GatsbyJS-ReactJS"
     - projectImage:
         image: "/img/www.trails.co.za.jpg"
         alt: "SA Adventure Trails Website"
       name: "SA Adventure Trails"
       github: "https://github.com/homearanya/wild-coast-walks"
       siteUrl: "https://www.trails.co.za"
-      type: "GatsbyJS"
+      type: "GatsbyJS-ReactJS"
     - projectImage:
         image: "/img/microsoft-front-end-developer-capstone-project.jpg"
         alt: "Microsoft Front End Development Program Capstone Project"
