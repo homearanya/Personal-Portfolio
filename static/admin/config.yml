@@ -108,7 +108,7 @@ collections:
               - {label: Blurb, name: blurb,widget: text}
               - label: Services
                 label_singular: Service
-                name: serices
+                name: services
                 widget: list
                 fields:
                   - {label: "Icon Classes", name: iconClasses, widget: string,}
