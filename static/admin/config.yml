@@ -111,9 +111,9 @@ collections:
                 name: serices
                 widget: list
                 fields:
-                  - {label: "Icon Classes",name: iconClasses, widget: string}
-                  - {label: "Service Name",name: serviceName, widget: string}
-                  - {label: "Blurb",name: blurb, widget: text}
+                  - {label: "Icon Classes", name: iconClasses, widget: string}
+                  - {label: "Service Name", name: serviceName, widget: string}
+                  - {label: "Blurb", name: blurb, widget: text}
           - label: Hire Area
             name: hireArea
             widget: object
@@ -172,21 +172,21 @@ collections:
             name: contactArea
             widget: object
             fields:
-          - {
-              label: "Address",
-              name: address,
-              widget: text
-            }              
-          - {
-              label: "Phone Number",
-              name: phone,
-              widget: string
-            }              
-          - {
-              label: "Email Address",
-              name: email,
-              widget: string
-            }              
+              - {
+                  label: "Address",
+                  name: address,
+                  widget: text
+                }              
+              - {
+                  label: "Phone Number",
+                  name: phone,
+                  widget: string
+                }              
+              - {
+                  label: "Email Address",
+                  name: email,
+                  widget: string
+                }              
           - label: 404 Area
             name:  notFoundArea
             widget: object
