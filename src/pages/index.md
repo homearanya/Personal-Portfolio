@@ -49,6 +49,13 @@ portfolioArea:
   blurb: Latest Projects
   projects:
     - projectImage:
+        image: "/img/www.inspiring-leaders.co.za.jpg"
+        alt: "Inspiring Leaders hero image"
+      name: "Inspiring Leaders"
+      github: "https://github.com/homearanya/inspiring-leaders"
+      siteUrl: "https://www.inspiring-leaders.co.za/"
+      type: GatsbyJS
+    - projectImage:
         image: "/img/www.alistairmork-chadwick.co.za.jpg"
         alt: "Alistair Mork-Chadwick Business Site"
       name: "Alistair Mork-Chadwick"
@@ -76,13 +83,6 @@ portfolioArea:
       github: ""
       siteUrl: "https://www.spanafrican-adventures.co.za/"
       type: WordPress
-    - projectImage:
-        image: "/img/www.inspiring-leaders.co.za.jpg"
-        alt: "Inspiring Leaders hero image"
-      name: "Inspiring Leaders"
-      github: "https://github.com/homearanya/inspiring-leaders"
-      siteUrl: "https://www.inspiring-leaders.co.za/"
-      type: GatsbyJS
 contactArea:
   address: 15 Miller Street, Howick, 3290, South Africa
   phone: +27 76 459 9127
