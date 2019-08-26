@@ -1,6 +1,6 @@
 ---
 templateKey: home-page
-excerpt: "Carlos Gonzalez is a front-end web developer based in Howick, South Africa"
+excerpt: 'Carlos Gonzalez is a front-end web developer based in Howick, South Africa'
 headerArea:
   heroImage:
     alt: Carlos Gonzalez in the Drakensberg Mountains of South Africa
@@ -16,7 +16,7 @@ aboutArea:
     alt: Carlos Gonzalez
     image: /img/carlos-gonzalez-about.jpg
 servicesArea:
-  blurb: "Cost-effective, quality, performing sites"
+  blurb: 'Cost-effective, quality, performing sites'
   heading: What I offer
   services:
     - blurb: >-
@@ -59,43 +59,43 @@ portfolioArea:
   blurb: Latest Projects
   heading: Portfolio
   projects:
-    - github: "https://github.com/homearanya/inspiring-leaders"
+    - github: 'https://github.com/homearanya/inspiring-leaders'
       name: Inspiring Leaders
       projectImage:
         alt: Inspiring Leaders hero image
         image: /img/www.inspiring-leaders.co.za.jpg
-      siteUrl: "https://www.inspiring-leaders.co.za/"
+      siteUrl: 'https://www.inspiring-leaders.co.za/'
       type: GatsbyJS-ReactJS
-    - github: "https://github.com/homearanya/alistair-psycologist"
+    - github: 'https://github.com/homearanya/alistair-psycologist'
       name: Alistair Mork-Chadwick
       projectImage:
         alt: Alistair Mork-Chadwick Business Site
         image: /img/www.alistairmork-chadwick.co.za.jpg
-      siteUrl: "https://www.alistairmork-chadwick.co.za/"
+      siteUrl: 'https://www.alistairmork-chadwick.co.za/'
       type: GatsbyJS-ReactJS
-    - github: "https://github.com/homearanya/wild-coast-walks"
+    - github: 'https://github.com/homearanya/wild-coast-walks'
       name: SA Adventure Trails
       projectImage:
         alt: SA Adventure Trails Website
         image: /img/www.trails.co.za.jpg
-      siteUrl: "https://www.trails.co.za"
+      siteUrl: 'https://www.trails.co.za'
       type: GatsbyJS-ReactJS
-    - github: "https://github.com/homearanya/homearanya.github.io"
+    - github: 'https://github.com/homearanya/React-ECommerce'
       name: Microsoft Capstone Project
       projectImage:
         alt: Microsoft Front End Development Program Capstone Project
         image: /img/microsoft-front-end-developer-capstone-project.jpg
-      siteUrl: "https://homearanya.github.io/"
+      siteUrl: 'https://homearanya.github.io/'
       type: ReactJS
-    - github: " "
+    - github: ''
       name: Spanafrican Adventures
       projectImage:
         alt: Spanafrican Adventures Website
         image: /img/www.spanafrican-adventures.co.za.jpg
-      siteUrl: "https://www.spanafrican-adventures.co.za/"
+      siteUrl: 'https://www.spanafrican-adventures.co.za/'
       type: WordPress
 contactArea:
-  address: "15 Miller Street, Howick, 3290, South Africa"
+  address: '15 Miller Street, Howick, 3290, South Africa'
   email: homearanya@outlook.com
   phone: +27 76 459 9127
 notFoundArea:

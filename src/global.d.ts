@@ -204,7 +204,7 @@ declare interface HireAreaProps {
 declare interface ProjectProps {
   projectImage: ImageGatsbyImageSharpFluid_withWebp
   name: string
-  github: string
+  github?: string
   siteUrl: string
   type: string
 }
