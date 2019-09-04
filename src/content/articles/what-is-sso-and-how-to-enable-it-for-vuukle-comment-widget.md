@@ -53,11 +53,3 @@ s.src = 'https://cdn.vuukle.com/platform.js'; (d.head || d.body).appendChild(s);
 ```
 
 **How to disable Vuukle and social auth**
-
-```html
-<script>
-
-</script>
-```
-
-This will help you to create smooth UX on your site.
