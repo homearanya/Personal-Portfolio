@@ -11,4 +11,5 @@ shortDescription: >-
   multiple applications with one set of login credentials.
 ---
 
-![sso img](/img/what-is-sso-and-how-to-enable-it-for-vuukle-comment-widget-img_2.png)
+![](/img/what-is-sso-and-how-to-enable-it-for-vuukle-comment-widget-img_2.png)
+![](/img/screenshot_7.png)
