@@ -73,7 +73,7 @@ s.src = 'https://cdn.vuukle.com/platform.js'; (d.head || d.body).appendChild(s);
       },
     },
   };
-  // ⛔️ DON'T EDIT BELOW THIS LINE
+  // DON'T EDIT BELOW THIS LINE
   (function() {
     var d = document,
       s = d.createElement('script')
