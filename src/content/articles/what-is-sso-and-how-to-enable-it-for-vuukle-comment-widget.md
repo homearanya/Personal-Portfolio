@@ -1,14 +1,17 @@
 ---
-title: What is SSO and how to enable it for Vuukle comment widget
-path: /what-is-sso-and-how-to-enable-it-for-vuukle-comment-widget/
-date: 2017-05-01T22:12:03.284Z
-category: FAQ
+title: >-
+  How can I log in to my account if I signed up from the comment widget without
+  a password?
+path: >-
+  /how-can-i-log-in-to-my-account-if-i-signed-up-from-the-comment-widget-without-a-password/
+date: 2019-08-16T07:57:19.727Z
+category: User Account Settings
 tags:
-  - how to
-  - SSO
+  - SIGNUP & LOGIN
 shortDescription: >-
-  Single sign-on (SSO) is an authentication process that allows a user to access
-  multiple applications with one set of login credentials.
+  If you signed up through the Comment Widget by entering your email address or
+  through a social media account, there are a couple of ways to log in to your
+  Vuukle account.
 ---
 
 ![sso img](/img/what-is-sso-and-how-to-enable-it-for-vuukle-comment-widget-img_2.png)
@@ -57,28 +60,51 @@ s.src = 'https://cdn.vuukle.com/platform.js'; (d.head || d.body).appendChild(s);
 ```html
 <script>
    var VUUKLE_CONFIG = {
+
    	apiKey: "Place Your API Key Here",
+
    	articleId: "Generate Unique id for your article",
+
    comments: {
+
   	auth: {
+
   		facebook: false,
+
   		google: false,
+
   		twitter: false,
+
   		disqus: false,
+
   		password: false,
+
   		vuukle: false,
+
   		sso: {
+
   			onClick: login_from_vuukle // some function to invoke for sso modal
+
   		}
+
   	}
+
    };
+
    // ⛔️ DON'T EDIT BELOW THIS LINE
+
    (function() {
+
   	 var d = document,
+
    		s = d.createElement('script');
+
   	s.onload = function() {vuukleLogin("ewogICAgInVzZXJuYW1lIjogIlNhbXBsZSBVc2VyIE5hbWUiLAogICAgImVtYWlsIjogIm1vdXNAZW1haWwuY29tIiwKICAgICJwdWJsaWNfa2V5IjogImVhZDQxZTQ2LWE1ZmQtMTFlMi1iYzk3LWJjNzY0ZTA0OTJjYyIsCiAgICAic2lnbmF0dXJlIjogIjBDOUMzMTRFMzZCNzgxNzg2REE2NUYyQ0Y3RTMwQzczNTI2NTUyNzM3ODY4MzEzMTRBOTM5NEEyOTI3N0NFQjU5REIzMDA1MjAzQTQyRjJERUE4QTE1QTQ0NjMwMjQzRTVCNEYxMEMxOUFCMEM3RDcwM0FDMjlENkM3OEEwMTgwIgp9")};
+
    s.src = 'https://cdn.vuukle.com/platform.js';
+
   (d.head || d.body).appendChild(s);
+
    })();
 </script>
 ```
