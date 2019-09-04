@@ -13,7 +13,6 @@ shortDescription: >-
   through a social media account, there are a couple of ways to log in to your
   Vuukle account.
 ---
-
 If you signed up through the Comment Widget by entering your email address or through a social media account, there are a couple of ways to log in to your Vuukle account.
 
 <br>
