@@ -72,9 +72,9 @@ s.src = 'https://cdn.vuukle.com/platform.js'; (d.head || d.body).appendChild(s);
         },
       },
     },
-  }
+  };
   // ⛔️ DON'T EDIT BELOW THIS LINE
-  ;(function() {
+  (function() {
     var d = document,
       s = d.createElement('script')
     s.onload = function() {
