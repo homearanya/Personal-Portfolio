@@ -57,23 +57,23 @@ s.src = 'https://cdn.vuukle.com/platform.js'; (d.head || d.body).appendChild(s);
 ```html
 <script>
   var VUUKLE_CONFIG = {
-      apiKey: 'Place Your API Key Here',
-      articleId: 'Generate Unique id for your article',
-      comments: {
-        auth: {
-          facebook: false,
-          google: false,
-          twitter: false,
-          disqus: false,
-          password: false,
-          vuukle: false,
-          sso: {
-            onClick: login_from_vuukle, // some function to invoke for sso modal
-          },
+    apiKey: 'Place Your API Key Here',
+    articleId: 'Generate Unique id for your article',
+    comments: {
+      auth: {
+        facebook: false,
+        google: false,
+        twitter: false,
+        disqus: false,
+        password: false,
+        vuukle: false,
+        sso: {
+          onClick: login_from_vuukle, // some function to invoke for sso modal
         },
       },
-    }
-    // ⛔️ DON'T EDIT BELOW THIS LINE
+    },
+  }
+  // ⛔️ DON'T EDIT BELOW THIS LINE
   ;(function() {
     var d = document,
       s = d.createElement('script')
