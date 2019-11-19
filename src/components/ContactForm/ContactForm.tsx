@@ -175,7 +175,7 @@ export class ContactForm extends Component<Props, State> {
     // It's not spam. Let's construct an HTTP request
     axios
       .post(
-        'https://husvage1fg.execute-api.us-east-1.amazonaws.com/prod/static-site-mailer-carlos-web',
+        'https://nx8def1qkj.execute-api.us-east-1.amazonaws.com/production/static-site-mailer-carlos-web',
         JSON.stringify(this.state),
         {headers: {'content-type': 'application//json; charset=UTF-8'}},
       )

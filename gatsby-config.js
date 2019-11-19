@@ -168,7 +168,12 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: 'gatsby-plugin-netlify-cms',
+      options: {
+        modulePath: `${__dirname}/src/cms/cms.js`,
+      },
+    },
     'gatsby-plugin-netlify-identity-widget',
     {
       resolve: 'gatsby-plugin-netlify-cache',

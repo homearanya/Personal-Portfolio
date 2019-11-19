@@ -37,7 +37,7 @@ collections:
         }
       - { label: 'Tags', name: 'tags', widget: 'list', required: false, hint: 'Comma-separated tags' }
       - { label: 'Short Description', name: 'shortDescription', widget: 'text', hint: For search engines }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - { label: 'Body', name: 'body', widget: 'customMarkdown' }
   - name: categories
     label: Categories
     label_singular: Category
