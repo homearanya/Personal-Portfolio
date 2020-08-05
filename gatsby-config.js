@@ -30,7 +30,7 @@ module.exports = {
         // your segment write key for your production environment
         // when process.env.NODE_ENV === 'production'
         // required; non-empty string
-        prodKey: `8fI5o1LTyJJnPWy5B2eQ7qzrAFkTjApE`,
+        prodKey: `f9kr9FuoddNASGGxILEOf3C5smW0WMs5`,
 
         // if you have a development env for your segment account, paste that key here
         // when process.env.NODE_ENV === 'development'
