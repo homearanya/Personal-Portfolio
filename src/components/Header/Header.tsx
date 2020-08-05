@@ -1,21 +1,24 @@
-import React from 'react'
-import styled from 'styled-components'
-import Particles from 'react-particles-js'
-import TextLoop from 'react-text-loop'
-import {Link as ScrollTo} from 'react-scroll'
+import React from "react"
+import styled from "styled-components"
+import Particles from "react-particles-js"
+import TextLoop from "react-text-loop"
+import { Link as ScrollTo } from "react-scroll"
 
-import Navbar from '../Navbar'
-import Button from '../Button'
+import Navbar from "../Navbar"
+import Button from "../Button"
 
-const StyledSection = styled.section<{backgroundImageMobile: string; backgroundImage: string}>`
+const StyledSection = styled.section<{
+  backgroundImageMobile: string
+  backgroundImage: string
+}>`
   &&& {
-    background-image: ${props => `url(${props.backgroundImageMobile})`};
+    background-image: ${(props) => `url(${props.backgroundImageMobile})`};
     background-position: right center;
     ::before {
       background-color: rgba(0, 0, 0, 0.3);
     }
     @media (min-width: 992px) {
-      background-image: ${props => `url(${props.backgroundImage})`};
+      background-image: ${(props) => `url(${props.backgroundImage})`};
       background-position: 65% 0;
       ::before {
         background-color: rgba(0, 0, 0, 0.3);
@@ -39,7 +42,14 @@ interface Props {
 }
 
 export default function Header(props: Props) {
-  const {heroImage, heroImageMobile, sidebarAvatarImage} = props.headerArea
+  const { heroImage, heroImageMobile, sidebarAvatarImage } = props.headerArea
+  const handleClick = () => {
+    console.log("clicked")
+    window.analytics.track("Track Event Fired", {
+      gender: "male",
+      age: 33,
+    })
+  }
   return (
     <header>
       <Navbar
@@ -54,18 +64,19 @@ export default function Header(props: Props) {
         className="header-area section-fixed-bg section-overlay-bg"
         id="header-area"
         backgroundImage={heroImage.image.childImageSharp.fluid.src}
-        backgroundImageMobile={heroImageMobile.image.childImageSharp.fluid.src}>
+        backgroundImageMobile={heroImageMobile.image.childImageSharp.fluid.src}
+      >
         <Particles
           className="particles-wrapper"
           canvasClassName="particles-canvas"
           params={{
             particles: {
-              size: {value: 5, random: true},
-              line_linked: {opacity: 0.5, width: 1},
+              size: { value: 5, random: true },
+              line_linked: { opacity: 0.5, width: 1 },
             },
             interactivity: {
-              events: {onhover: {enable: true, mode: 'grab'}},
-              detect_on: 'canvas',
+              events: { onhover: { enable: true, mode: "grab" } },
+              detect_on: "canvas",
             },
           }}
         />
@@ -83,9 +94,9 @@ export default function Header(props: Props) {
                 </TextLoop>
               </h1>
               <p className="description">
-                I’m a web developer with experience in the latest developing tools. I use GatsbyJS,
-                a ReactJS-based static site generator, to create blazing-fast loading,
-                modern-looking websites.
+                I’m a web developer with experience in the latest developing
+                tools. I use GatsbyJS, a ReactJS-based static site generator, to
+                create blazing-fast loading, modern-looking websites.
               </p>
               <Button
                 whereTo="#portfolio-area"
@@ -94,6 +105,7 @@ export default function Header(props: Props) {
                 backgroundColor="#fff"
               />
               <Button
+                onClick={handleClick}
                 whereTo="#contact-area"
                 text="Hire me"
                 color="#fff"

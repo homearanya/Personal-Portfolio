@@ -1,13 +1,15 @@
-import React from 'react'
-import {Link} from 'gatsby'
-import styled from 'styled-components'
-import {Link as ScrollTo} from 'react-scroll'
+import React from "react"
+import { Link } from "gatsby"
+import styled from "styled-components"
+import { Link as ScrollTo } from "react-scroll"
 
-const StyledButton = styled.button.attrs(() => ({type: 'button'}))<{backgroundColor: string}>`
-  background-color: ${props => props.backgroundColor};
-  border: 1px solid ${props => props.backgroundColor};
+const StyledButton = styled.button.attrs(() => ({ type: "button" }))<{
+  backgroundColor: string
+}>`
+  background-color: ${(props) => props.backgroundColor};
+  border: 1px solid ${(props) => props.backgroundColor};
   border-radius: 30px;
-  color: ${props => props.color};
+  color: ${(props) => props.color};
   cursor: pointer;
   display: inline-block;
   font-weight: 500;
@@ -31,19 +33,34 @@ const StyledButton = styled.button.attrs(() => ({type: 'button'}))<{backgroundCo
   }
 `
 
-export default function Button(props: ButtopProps) {
+export default function Button({
+  whereTo,
+  color,
+  text,
+  backgroundColor,
+  onClick,
+}: ButtonProps) {
   return (
     <React.Fragment>
-      {props.whereTo[0] === '#' ? (
-        <ScrollTo to={props.whereTo.split('#')[1]} smooth={true} duration={500}>
-          <StyledButton color={props.color} backgroundColor={props.backgroundColor}>
-            {props.text}
+      {whereTo[0] === "#" ? (
+        <ScrollTo
+          to={whereTo.split("#")[1]}
+          smooth={true}
+          duration={500}
+          onClick={onClick}
+        >
+          <StyledButton color={color} backgroundColor={backgroundColor}>
+            {text}
           </StyledButton>
         </ScrollTo>
       ) : (
-        <Link to={props.whereTo}>
-          <StyledButton color={props.color} backgroundColor={props.backgroundColor}>
-            {props.text}
+        <Link to={whereTo} onClick={onClick}>
+          <StyledButton
+            color={color}
+            backgroundColor={backgroundColor}
+            onClick={onClick}
+          >
+            {text}
           </StyledButton>
         </Link>
       )}

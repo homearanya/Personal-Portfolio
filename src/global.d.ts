@@ -91,7 +91,7 @@ declare interface NotFoundArea {
   }
 }
 
-declare module 'react-scroll-up' {
+declare module "react-scroll-up" {
   interface ScrollUpProps {
     showUnder: number
     topPosition?: number
@@ -103,29 +103,29 @@ declare module 'react-scroll-up' {
   export default ScrollUp
 }
 
-declare module 'react-loader-spinner' {
+declare module "react-loader-spinner" {
   interface LoaderProps {
     color?: string
     width?: number
     height?: number
     type:
-      | 'Audio'
-      | 'Ball-Triangle'
-      | 'Bars'
-      | 'Circles'
-      | 'Grid'
-      | 'Hearts'
-      | 'Oval'
-      | 'Puff'
-      | 'Rings'
-      | 'TailSpin'
-      | 'ThreeDots'
+      | "Audio"
+      | "Ball-Triangle"
+      | "Bars"
+      | "Circles"
+      | "Grid"
+      | "Hearts"
+      | "Oval"
+      | "Puff"
+      | "Rings"
+      | "TailSpin"
+      | "ThreeDots"
   }
   class Loader extends React.Component<LoaderProps> {}
 
   export default Loader
 }
-declare module 'react-text-loop' {
+declare module "react-text-loop" {
   interface SpringConfig {
     stifness?: number
     damping?: number
@@ -177,7 +177,8 @@ declare interface AboutAreaProps {
   aboutImage: ImageGatsbyImageSharpFluid_withWebp
 }
 
-declare interface ButtopProps {
+declare interface ButtonProps {
+  onClick?: () => void
   whereTo: string
   text: string
   color: string
