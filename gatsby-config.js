@@ -35,7 +35,7 @@ module.exports = {
         // if you have a development env for your segment account, paste that key here
         // when process.env.NODE_ENV === 'development'
         // optional; non-empty string
-        devKey: `8fI5o1LTyJJnPWy5B2eQ7qzrAFkTjApE`,
+        devKey: `f9kr9FuoddNASGGxILEOf3C5smW0WMs5`,
 
         // boolean (defaults to false) on whether you want
         // to include analytics.page() automatically

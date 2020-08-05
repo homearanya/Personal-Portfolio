@@ -45,9 +45,8 @@ export default function Header(props: Props) {
   const { heroImage, heroImageMobile, sidebarAvatarImage } = props.headerArea
   const handleClick = () => {
     console.log("clicked")
-    window.analytics.track("Track Event Fired", {
-      gender: "male",
-      age: 33,
+    window.analytics.track("Button hired clicked", {
+      email: "test@chattermill.com",
     })
   }
   return (
