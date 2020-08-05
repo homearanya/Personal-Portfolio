@@ -215,11 +215,19 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-netlify-cms",
+      resolve: "gatsby-plugin-hubspot",
       options: {
-        modulePath: `${__dirname}/src/cms/cms.js`,
+        trackingCode: 8223485,
+        respectDNT: false,
+        productionOnly: false,
       },
     },
+    // {
+    //   resolve: "gatsby-plugin-netlify-cms",
+    //   options: {
+    //     modulePath: `${__dirname}/src/cms/cms.js`,
+    //   },
+    // },
     "gatsby-plugin-netlify-identity-widget",
     {
       resolve: "gatsby-plugin-netlify-cache",
