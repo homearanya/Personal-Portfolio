@@ -44,10 +44,28 @@ interface Props {
 export default function Header(props: Props) {
   const { heroImage, heroImageMobile, sidebarAvatarImage } = props.headerArea
   const handleClick = () => {
-    console.log("clicked")
-    window.analytics.track("Button hired clicked", {
-      email: "test@chattermill.com",
+    // const anonymousId = window.analytics.user().anonymousId()
+    window.analytics.page("", "Home Page - Javascript", {
+      email: "test@test.com",
     })
+
+    // fetch(`/.netlify/functions/hello-world`, {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json, text/plain, */*",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     eventName: "Hire Me Button",
+    //     anonymousId,
+    //   }),
+    // }).then((res) => {
+    //   if (res.status === 200) {
+    //     console.log("data successfully submitted to Segment")
+    //   } else {
+    //     console.log("Fail to submit data to Segment")
+    //   }
+    // })
   }
   return (
     <header>

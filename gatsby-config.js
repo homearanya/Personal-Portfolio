@@ -40,7 +40,7 @@ module.exports = {
         // boolean (defaults to false) on whether you want
         // to include analytics.page() automatically
         // if false, see below on how to track pageviews manually
-        trackPage: false,
+        // trackPage: false,
 
         // If you need to proxy events through a custom endpoint,
         // add a `host` property (defaults to https://cdn.segment.io)
