@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import Particles from "react-particles-js"
+import Particles from "react-tsparticles"
 import TextLoop from "react-text-loop"
 import { Link as ScrollTo } from "react-scroll"
 import { getSrc } from "gatsby-plugin-image"
@@ -97,7 +97,7 @@ export default function Header(props: Props) {
         <Particles
           className="particles-wrapper"
           canvasClassName="particles-canvas"
-          params={{
+          options={{
             particles: {
               size: { value: 5, random: true },
               line_linked: { opacity: 0.5, width: 1 },
