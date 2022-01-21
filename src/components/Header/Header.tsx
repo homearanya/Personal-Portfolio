@@ -95,17 +95,46 @@ export default function Header(props: Props) {
         }
       >
         <Particles
+          id="tsparticles"
           className="particles-wrapper"
           canvasClassName="particles-canvas"
           options={{
+            fpsLimit: 60,
             particles: {
-              size: { value: 5, random: true },
-              line_linked: { opacity: 0.5, width: 1 },
+              size: { value: 4, random: true },
+              links: {
+                color: "#ffffff",
+                distance: 150,
+                enable: true,
+                opacity: 0.3,
+                width: 1,
+              },
+              collisions: {
+                enable: true,
+              },
+              move: {
+                direction: "none",
+                enable: true,
+                outMode: "bounce",
+                random: false,
+                speed: 2,
+                straight: false,
+              },
+              number: {
+                density: {
+                  enable: true,
+                  area: 800,
+                },
+                value: 30,
+              },
+              opacity: {
+                value: 0.3,
+              },
             },
             interactivity: {
               events: { onhover: { enable: true, mode: "grab" } },
-              detect_on: "canvas",
             },
+            detectRetina: true,
           }}
         />
         <div className="container h-100">
