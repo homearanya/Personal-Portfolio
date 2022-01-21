@@ -1,6 +1,6 @@
-import React from 'react'
-import ScrollToTop from 'react-scroll-up'
-import styled from 'styled-components'
+import React from "react"
+import ScrollToTop from "react-scroll-up"
+import styled from "styled-components"
 
 const ScrollToTopWrapper = styled.div`
   &&& {

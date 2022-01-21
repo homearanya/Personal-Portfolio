@@ -1,4 +1,4 @@
-import u from 'unist-builder';
+import u from "unist-builder"
 
 /**
  * Ensure that top level 'html' type nodes are wrapped in paragraphs. Html nodes
@@ -6,15 +6,15 @@ import u from 'unist-builder';
  */
 export default function remarkWrapHtml() {
   function transform(tree) {
-    tree.children = tree.children.map(node => {
-      if (node.type === 'html') {
-        return u('paragraph', [node]);
+    tree.children = tree.children.map((node) => {
+      if (node.type === "html") {
+        return u("paragraph", [node])
       }
-      return node;
-    });
+      return node
+    })
 
-    return tree;
+    return tree
   }
 
-  return transform;
+  return transform
 }

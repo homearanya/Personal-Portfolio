@@ -4,12 +4,12 @@
  * replaces the images with the emoji characters.
  */
 export default function rehypePaperEmoji() {
-  const transform = node => {
-    if (node.tagName === 'img' && node.properties.dataEmojiCh) {
-      return { type: 'text', value: node.properties.dataEmojiCh };
+  const transform = (node) => {
+    if (node.tagName === "img" && node.properties.dataEmojiCh) {
+      return { type: "text", value: node.properties.dataEmojiCh }
     }
-    node.children = node.children ? node.children.map(transform) : node.children;
-    return node;
-  };
-  return transform;
+    node.children = node.children ? node.children.map(transform) : node.children
+    return node
+  }
+  return transform
 }

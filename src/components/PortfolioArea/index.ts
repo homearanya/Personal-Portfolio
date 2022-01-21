@@ -1,1 +1,1 @@
-export {default} from './PortfolioArea'
+export { default } from "./PortfolioArea"

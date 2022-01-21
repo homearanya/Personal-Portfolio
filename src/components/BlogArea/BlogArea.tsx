@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 // import post1 from "../assets/img/post-1.jpg";
 // import post2 from "../assets/img/post-2.jpg";
@@ -15,7 +15,8 @@ export default function BlogArea() {
             <div className="section-heading">
               <h2 className="section-title">My Blog</h2>
               <p className="section-description">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione!
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Ratione!
               </p>
             </div>
           </div>
@@ -31,8 +32,9 @@ export default function BlogArea() {
                   <h5 className="card-title">5 tips for Photographers</h5>
                 </a>
                 <p className="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, porro rem quod
-                  illo quam, eum alias id, repellendus magni, quas.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Dolore, porro rem quod illo quam, eum alias id, repellendus
+                  magni, quas.
                 </p>
                 <div className="media post-summary">
                   <a className="align-self-center" href="#0">
@@ -66,8 +68,9 @@ export default function BlogArea() {
                   <h5 className="card-title">Take a tour of my office</h5>
                 </a>
                 <p className="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, porro rem quod
-                  illo quam, eum alias id, repellendus magni, quas.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Dolore, porro rem quod illo quam, eum alias id, repellendus
+                  magni, quas.
                 </p>
                 <div className="media post-summary">
                   <a className="align-self-center" href="#0">
@@ -101,8 +104,9 @@ export default function BlogArea() {
                   <h5 className="card-title">How i became a Web Designer</h5>
                 </a>
                 <p className="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, porro rem quod
-                  illo quam, eum alias id, repellendus magni, quas.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Dolore, porro rem quod illo quam, eum alias id, repellendus
+                  magni, quas.
                 </p>
                 <div className="media post-summary">
                   <a className="align-self-center" href="#0">

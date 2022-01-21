@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
-import Shuffle from 'shufflejs'
+import React, { Component } from "react"
+import Shuffle from "shufflejs"
 
-import PortfolioFilters from '../PortfolioFilters'
-import PortfolioProjects from '../PortfolioProjects'
+import PortfolioFilters from "../PortfolioFilters"
+import PortfolioProjects from "../PortfolioProjects"
 
 interface Props {
-  portfolioArea: PorfolioAreaProps
+  portfolioArea: GatsbyTypes.MarkdownRemarkFrontmatterPortfolioArea
 }
 
 interface State {
@@ -20,39 +20,44 @@ export default class PortfolioArea extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
-    this.state = {activeTab: 0, filters: ['all']}
+    this.state = { activeTab: 0, filters: ["all"] }
     this.element = React.createRef()
     this.sizer = React.createRef()
     this.shuffle = null
   }
   handleClick = (index: number) => {
-    this.setState({activeTab: index})
+    this.setState({ activeTab: index })
   }
 
   componentDidMount() {
     // The elements are in the DOM, initialize a shuffle instance.
-    if (this.element && this.element.current && this.sizer && this.sizer.current) {
+    if (
+      this.element &&
+      this.element.current &&
+      this.sizer &&
+      this.sizer.current
+    ) {
       this.shuffle = new Shuffle(this.element.current, {
-        itemSelector: '.js-item',
+        itemSelector: ".js-item",
         sizer: this.sizer.current,
       })
     }
     // build filters
-    const filters = this.props.portfolioArea.projects.reduce(
+    const filters = this.props.portfolioArea?.projects?.reduce(
       (filters, project) => {
-        const found = filters.find(element => {
-          return element === project.type
+        const found = filters.find((element) => {
+          return element === project?.type
         })
         if (found) {
           return filters
         } else {
-          filters.push(project.type)
+          project?.type && filters.push(project.type)
           return filters
         }
       },
-      ['All'],
+      ["All"]
     )
-    this.setState({filters: filters})
+    this.setState({ filters: filters ?? [] })
   }
 
   componentDidUpdate() {
@@ -76,7 +81,7 @@ export default class PortfolioArea extends Component<Props, State> {
     }
   }
   render() {
-    const {heading, blurb} = this.props.portfolioArea
+    const { heading, blurb } = this.props.portfolioArea
     return (
       <section className="single-section portfolio-area" id="portfolio-area">
         <div className="container">
@@ -96,7 +101,10 @@ export default class PortfolioArea extends Component<Props, State> {
                 activeTab={this.state.activeTab}
               />
               <PortfolioProjects
-                projects={this.props.portfolioArea.projects}
+                projects={
+                  this.props.portfolioArea
+                    .projects as GatsbyTypes.MarkdownRemarkFrontmatterPortfolioAreaProjects[]
+                }
                 element={this.element}
                 sizer={this.sizer}
               />

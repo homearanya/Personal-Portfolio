@@ -1,16 +1,18 @@
-import React from 'react'
-import {Link as ScrollTo} from 'react-scroll'
-import styled from 'styled-components'
+import React from "react"
+import { Link as ScrollTo } from "react-scroll"
+import styled from "styled-components"
 
-const StyledLi = styled.li<{isSticky: boolean}>`
+const StyledLi = styled.li<{ isSticky: boolean }>`
   & a.active {
-    color: ${props => (props.isSticky ? '#007bff !important' : '#fff !important')};
+    color: ${(props) =>
+      props.isSticky ? "#007bff !important" : "#fff !important"};
   }
   &&& {
     :hover,
     :focus {
       a {
-        color: ${props => (props.isSticky ? '#007bff !important' : '#fff !important')};
+        color: ${(props) =>
+          props.isSticky ? "#007bff !important" : "#fff !important"};
       }
     }
   }
@@ -21,7 +23,7 @@ const StyledScrollTo = styled(ScrollTo)`
 `
 
 interface Props {
-  menuItems: MenuItemProps[]
+  menuItems: GatsbyTypes.MarkdownRemarkFrontmatterMenuItems[]
   isSticky: boolean
   handleClick: () => void
 }
@@ -35,11 +37,12 @@ export default function MenuItems(props: Props) {
             <StyledScrollTo
               activeClass="active"
               className="nav-link"
-              to={menuItem.link}
+              to={menuItem?.link ?? ""}
               smooth={true}
               duration={300}
               spy={true}
-              onClick={props.handleClick}>
+              onClick={props.handleClick}
+            >
               {menuItem.name}
             </StyledScrollTo>
           </StyledLi>

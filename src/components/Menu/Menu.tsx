@@ -1,7 +1,7 @@
-import React from 'react'
-import {StaticQuery, graphql} from 'gatsby'
+import React from "react"
+import { StaticQuery, graphql } from "gatsby"
 
-import MenuItems from '../MenuItems'
+import MenuItems from "../MenuItems"
 
 interface Props {
   mobile: boolean
@@ -12,23 +12,19 @@ interface Props {
   className?: string
 }
 
-interface StaticQueryData {
-  markdownRemark: {
-    frontmatter: MenuItemsProps
-  }
-}
-
 export default function Menu(props: Props) {
-  let menuClasses = 'navbar-collapse order-1 order-lg-0 collapse'
+  let menuClasses = "navbar-collapse order-1 order-lg-0 collapse"
   if (props.openMenu) {
-    menuClasses = 'navbar-collapse order-1 order-lg-0 collapse show'
+    menuClasses = "navbar-collapse order-1 order-lg-0 collapse show"
   }
-  menuClasses = props.className ? `${props.className} ${menuClasses}` : menuClasses
+  menuClasses = props.className
+    ? `${props.className} ${menuClasses}`
+    : menuClasses
   return (
-    <StaticQuery
+    <StaticQuery<GatsbyTypes.MenuQueryQuery>
       query={graphql`
         query MenuQuery {
-          markdownRemark(fields: {slug: {eq: "/main-menu/"}}) {
+          markdownRemark(fields: { slug: { eq: "/main-menu/" } }) {
             frontmatter {
               menuItems {
                 link
@@ -38,22 +34,30 @@ export default function Menu(props: Props) {
           }
         }
       `}
-      render={(data: StaticQueryData) => {
-        const {menuItems} = data.markdownRemark.frontmatter
+      render={(data) => {
+        const menuItems = data?.markdownRemark?.frontmatter?.menuItems
         return (
-          <div id="navbarSupportedContent" className={menuClasses} style={{overflow: 'hidden'}}>
+          <div
+            id="navbarSupportedContent"
+            className={menuClasses}
+            style={{ overflow: "hidden" }}
+          >
             <ul className="navbar-nav ml-auto">
               {props.mobile ? (
                 <div ref={props.menuRef}>
                   <MenuItems
-                    menuItems={menuItems}
+                    menuItems={
+                      menuItems as GatsbyTypes.MarkdownRemarkFrontmatterMenuItems[]
+                    }
                     isSticky={props.isSticky}
                     handleClick={props.handleClick}
                   />
                 </div>
               ) : (
                 <MenuItems
-                  menuItems={menuItems}
+                  menuItems={
+                    menuItems as GatsbyTypes.MarkdownRemarkFrontmatterMenuItems[]
+                  }
                   isSticky={props.isSticky}
                   handleClick={props.handleClick}
                 />

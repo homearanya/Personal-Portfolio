@@ -1,5 +1,9 @@
-import { has, flow, partial, map } from 'lodash';
-import { joinPatternSegments, combinePatterns, replaceWhen } from '../regexHelper';
+import { has, flow, partial, map } from "lodash"
+import {
+  joinPatternSegments,
+  combinePatterns,
+  replaceWhen,
+} from "../regexHelper"
 
 /**
  * Reusable regular expressions segments.
@@ -11,7 +15,7 @@ const patternSegments = {
    * single or double quotes and may be prepended by zero or more spaces.
    */
   htmlOpeningTagEnd: /(?: *\w+=(?:(?:"[^"]*")|(?:'[^']*')))* *>/,
-};
+}
 
 /**
  * Patterns matching substrings that should not be escaped. Array values must be
@@ -68,7 +72,7 @@ const nonEscapePatterns = {
      */
     /<\/\1>/,
   ],
-};
+}
 
 /**
  * Escape patterns
@@ -132,29 +136,31 @@ const escapePatterns = [
    * penalty.
    */
   /(\[)[^\]]*]/g,
-];
+]
 
 /**
  * Generate new non-escape expression. The non-escape expression matches
  * substrings whose contents should not be processed for escaping.
  */
-const joinedNonEscapePatterns = map(nonEscapePatterns, pattern => {
-  return new RegExp(joinPatternSegments(pattern));
-});
-const nonEscapePattern = combinePatterns(joinedNonEscapePatterns);
+const joinedNonEscapePatterns = map(nonEscapePatterns, (pattern) => {
+  return new RegExp(joinPatternSegments(pattern))
+})
+const nonEscapePattern = combinePatterns(joinedNonEscapePatterns)
 
 /**
  * Create chain of successive escape functions for various markdown entities.
  */
-const escapeFunctions = escapePatterns.map(pattern => partial(escapeDelimiters, pattern));
-const escapeAll = flow(escapeFunctions);
+const escapeFunctions = escapePatterns.map((pattern) =>
+  partial(escapeDelimiters, pattern)
+)
+const escapeAll = flow(escapeFunctions)
 
 /**
  * Executes both the `escapeCommonChars` and `escapeLeadingChars` functions.
  */
 function escapeAllChars(text) {
-  const partiallyEscapedMarkdown = escapeCommonChars(text);
-  return escapeLeadingChars(partiallyEscapedMarkdown);
+  const partiallyEscapedMarkdown = escapeCommonChars(text)
+  return escapeLeadingChars(partiallyEscapedMarkdown)
 }
 
 /**
@@ -168,7 +174,7 @@ function escapeAllChars(text) {
  * whitespace characters.
  */
 function escapeLeadingChars(text) {
-  return text.replace(/^\s*([-#*>=|]| {4,}|`{3,})/, '$`\\$1');
+  return text.replace(/^\s*([-#*>=|]| {4,}|`{3,})/, "$`\\$1")
 }
 
 /**
@@ -182,13 +188,13 @@ function escapeCommonChars(text) {
    * Generate new non-escape expression (must happen at execution time because
    * we use `RegExp.exec`, which tracks it's own state internally).
    */
-  const nonEscapeExpression = new RegExp(nonEscapePattern, 'gm');
+  const nonEscapeExpression = new RegExp(nonEscapePattern, "gm")
 
   /**
    * Use `replaceWhen` to escape markdown entities only within substrings that
    * are eligible for escaping.
    */
-  return replaceWhen(nonEscapeExpression, escapeAll, text, true);
+  return replaceWhen(nonEscapeExpression, escapeAll, text, true)
 }
 
 /**
@@ -200,11 +206,11 @@ function escapeCommonChars(text) {
  */
 function escapeDelimiters(pattern, text) {
   return text.replace(pattern, (match, start, end) => {
-    const hasEnd = typeof end === 'string';
-    const matchSliceEnd = hasEnd ? match.length - end.length : match.length;
-    const content = match.slice(start.length, matchSliceEnd);
-    return `${escape(start)}${content}${hasEnd ? escape(end) : ''}`;
-  });
+    const hasEnd = typeof end === "string"
+    const matchSliceEnd = hasEnd ? match.length - end.length : match.length
+    const content = match.slice(start.length, matchSliceEnd)
+    return `${escape(start)}${content}${hasEnd ? escape(end) : ""}`
+  })
 }
 
 /**
@@ -214,11 +220,11 @@ function escapeDelimiters(pattern, text) {
  * character in the received string with a backslash.
  */
 function escape(delim) {
-  let result = '';
+  let result = ""
   for (const char of delim) {
-    result += `\\${char}`;
+    result += `\\${char}`
   }
-  return result;
+  return result
 }
 
 /**
@@ -241,28 +247,29 @@ export default function remarkEscapeMarkdownEntities() {
      * Shortcode nodes will intentionally inject markdown entities in text node
      * children not be escaped.
      */
-    if (has(node.data, 'shortcode')) return node;
+    if (has(node.data, "shortcode")) return node
 
-    const children = node.children && node.children.map(transform);
+    const children = node.children && node.children.map(transform)
 
     /**
      * Escape characters in text and html nodes only. We store a lot of normal
      * text in html nodes to keep Remark from escaping html entities.
      */
-    if (['text', 'html'].includes(node.type)) {
+    if (["text", "html"].includes(node.type)) {
       /**
        * Escape all characters if this is the first child node, otherwise only
        * common characters.
        */
-      const value = index === 0 ? escapeAllChars(node.value) : escapeCommonChars(node.value);
-      return { ...node, value, children };
+      const value =
+        index === 0 ? escapeAllChars(node.value) : escapeCommonChars(node.value)
+      return { ...node, value, children }
     }
 
     /**
      * Always return nodes with recursively mapped children.
      */
-    return { ...node, children };
-  };
+    return { ...node, children }
+  }
 
-  return transform;
+  return transform
 }

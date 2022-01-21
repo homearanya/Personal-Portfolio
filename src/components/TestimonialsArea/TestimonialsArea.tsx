@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 // import client1 from "../assets/img/client-1.jpg";
 // import client2 from "../assets/img/client-2.jpg";
@@ -8,7 +8,8 @@ export default function TestimonialsArea() {
   return (
     <section
       className="single-section section-fixed-bg section-overlay-bg testimonials-area"
-      id="testimonials-area">
+      id="testimonials-area"
+    >
       <div className="container">
         <div className="row">
           <div className="col-12">
@@ -23,9 +24,10 @@ export default function TestimonialsArea() {
               <div className="single-review text-center">
                 <i className="icon ion-md-quote quote-icon" />
                 <p className="client-review">
-                  Carlos did an excellent job, creative, addressing my request, and also providing
-                  his own graphic insight. Quick and professional. I would highly recommend, and
-                  also will use again!
+                  Carlos did an excellent job, creative, addressing my request,
+                  and also providing his own graphic insight. Quick and
+                  professional. I would highly recommend, and also will use
+                  again!
                 </p>
                 <div className="flex-row client-details">
                   <div className="media justify-content-center">
@@ -46,9 +48,10 @@ export default function TestimonialsArea() {
               <div className="single-review text-center">
                 <i className="icon ion-md-quote quote-icon" />
                 <p className="client-review">
-                  Carlos did an excellent job, creative, addressing my request, and also providing
-                  his own graphic insight. Quick and professional. I would highly recommend, and
-                  also will use again!
+                  Carlos did an excellent job, creative, addressing my request,
+                  and also providing his own graphic insight. Quick and
+                  professional. I would highly recommend, and also will use
+                  again!
                 </p>
                 <div className="flex-row client-details">
                   <div className="media justify-content-center">
@@ -69,9 +72,10 @@ export default function TestimonialsArea() {
               <div className="single-review text-center">
                 <i className="icon ion-md-quote quote-icon" />
                 <p className="client-review">
-                  Carlos did an excellent job, creative, addressing my request, and also providing
-                  his own graphic insight. Quick and professional. I would highly recommend, and
-                  also will use again!
+                  Carlos did an excellent job, creative, addressing my request,
+                  and also providing his own graphic insight. Quick and
+                  professional. I would highly recommend, and also will use
+                  again!
                 </p>
                 <div className="flex-row client-details">
                   <div className="media justify-content-center">

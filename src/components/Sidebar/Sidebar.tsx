@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import Img from 'gatsby-image'
-import styled from 'styled-components'
+import React, { Component } from "react"
+import { GatsbyImage } from "gatsby-plugin-image"
+import styled from "styled-components"
 
-const IconWrapper = styled.div<{inputColor: string}>`
-  color: ${props => props.inputColor};
+const IconWrapper = styled.div<{ inputColor: string }>`
+  color: ${(props) => props.inputColor};
   display: inline-block;
   font-size: 21px;
   margin: 0 5px;
@@ -11,8 +11,8 @@ const IconWrapper = styled.div<{inputColor: string}>`
 `
 interface Props {
   toggleSidebar: () => void
-  sidebarAvatarImage: ImageGatsbyImageSharpFluid_withWebp_noBase64
-  contactArea: ContactAreaProps
+  sidebarAvatarImage: GatsbyTypes.MarkdownRemarkFrontmatterHeaderAreaSidebarAvatarImage
+  contactArea: GatsbyTypes.MarkdownRemarkFrontmatterContactArea
   moreDetailsRef: React.RefObject<HTMLButtonElement>
 }
 
@@ -24,11 +24,11 @@ export class Sidebar extends Component<Props> {
     this.handleClickOutside = this.handleClickOutside.bind(this)
   }
   componentWillMount() {
-    document.addEventListener('mousedown', this.handleClickOutside)
+    document.addEventListener("mousedown", this.handleClickOutside)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside)
+    document.removeEventListener("mousedown", this.handleClickOutside)
   }
 
   handleClickOutside(event: MouseEvent) {
@@ -50,17 +50,23 @@ export class Sidebar extends Component<Props> {
           className="hamburger hamburger--slider is-active"
           type="button"
           onClick={this.props.toggleSidebar}
-          aria-label="Sidebar Menu">
+          aria-label="Sidebar Menu"
+        >
           <span className="hamburger-box">
             <span className="hamburger-inner" />
           </span>
         </button>
         <div className="about-me">
-          <Img
-            className="img-fluid img-thumbnail d-block mx-auto avatar"
-            fluid={this.props.sidebarAvatarImage.image.childImageSharp.fluid}
-            alt={this.props.sidebarAvatarImage.alt}
-          />
+          {this.props.sidebarAvatarImage.image?.childImageSharp && (
+            <GatsbyImage
+              image={
+                this.props.sidebarAvatarImage.image.childImageSharp
+                  .gatsbyImageData
+              }
+              className="img-fluid img-thumbnail d-block mx-auto avatar"
+              alt={this.props.sidebarAvatarImage.alt ?? ""}
+            />
+          )}
           <address>
             <ul className="list-unstyled">
               <li>
@@ -93,7 +99,8 @@ export class Sidebar extends Component<Props> {
                   <a
                     href={`https://maps.google.com/?q=${this.props.contactArea.address}`}
                     target="_blank"
-                    rel="noopener noreferrer">
+                    rel="noopener noreferrer"
+                  >
                     {this.props.contactArea.address}
                   </a>
                 </p>
@@ -106,14 +113,21 @@ export class Sidebar extends Component<Props> {
                 <span>Date of Birth</span>
                 <p>10 February 1973</p>
               </li>
-              <li>
-                <span>Phone</span>
-                <p>
-                  <a href={`tel:${this.props.contactArea.phone.replace(/ /g, '')}`}>
-                    {this.props.contactArea.phone}
-                  </a>
-                </p>
-              </li>
+              {this.props.contactArea.phone && (
+                <li>
+                  <span>Phone</span>
+                  <p>
+                    <a
+                      href={`tel:${this.props.contactArea.phone.replace(
+                        / /g,
+                        ""
+                      )}`}
+                    >
+                      {this.props.contactArea.phone}
+                    </a>
+                  </p>
+                </li>
+              )}
               <li>
                 <span>Residence</span>
                 <p>South Africa</p>
@@ -125,7 +139,11 @@ export class Sidebar extends Component<Props> {
             </ul>
           </address>
           <div className="social-medias">
-            <a href="https://github.com/homearanya" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://github.com/homearanya"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <IconWrapper inputColor="#6e5494">
                 <i className="fab fa-github" />
               </IconWrapper>
@@ -133,12 +151,17 @@ export class Sidebar extends Component<Props> {
             <a
               href="https://www.linkedin.com/in/carlos-david-gonzalez-vicente/"
               target="_blank"
-              rel="noopener noreferrer">
+              rel="noopener noreferrer"
+            >
               <IconWrapper inputColor="#0077b5">
                 <i className="fab fa-linkedin" />
               </IconWrapper>
             </a>
-            <a href="https://twitter.com/CGonzalezWebDev" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://twitter.com/CGonzalezWebDev"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <IconWrapper inputColor="#1DA1F2">
                 <i className="fab fa-twitter" />
               </IconWrapper>

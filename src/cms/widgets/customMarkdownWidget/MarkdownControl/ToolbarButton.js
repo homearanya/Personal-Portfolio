@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
-import { Icon, buttons } from 'netlify-cms-ui-default';
+import React from "react"
+import PropTypes from "prop-types"
+import styled from "@emotion/styled"
+import { Icon, buttons } from "netlify-cms-ui-default"
 
 const StyledToolbarButton = styled.button`
   ${buttons.button};
@@ -10,7 +10,7 @@ const StyledToolbarButton = styled.button`
   border: none;
   background-color: transparent;
   font-size: 16px;
-  color: ${props => (props.isActive ? '#1e2532' : 'inherit')};
+  color: ${(props) => (props.isActive ? "#1e2532" : "inherit")};
   cursor: pointer;
 
   &:disabled {
@@ -21,24 +21,32 @@ const StyledToolbarButton = styled.button`
   ${Icon} {
     display: block;
   }
-`;
+`
 
-const ToolbarButton = ({ type, label, icon, onClick, isActive, isHidden, disabled }) => {
+const ToolbarButton = ({
+  type,
+  label,
+  icon,
+  onClick,
+  isActive,
+  isHidden,
+  disabled,
+}) => {
   if (isHidden) {
-    return null;
+    return null
   }
 
   return (
     <StyledToolbarButton
       isActive={isActive && type && isActive(type)}
-      onClick={e => onClick && onClick(e, type)}
+      onClick={(e) => onClick && onClick(e, type)}
       title={label}
       disabled={disabled}
     >
       {icon ? <Icon type={icon} /> : label}
     </StyledToolbarButton>
-  );
-};
+  )
+}
 
 ToolbarButton.propTypes = {
   type: PropTypes.string,
@@ -48,6 +56,6 @@ ToolbarButton.propTypes = {
   isActive: PropTypes.func,
   isHidden: PropTypes.bool,
   disabled: PropTypes.bool,
-};
+}
 
-export default ToolbarButton;
+export default ToolbarButton

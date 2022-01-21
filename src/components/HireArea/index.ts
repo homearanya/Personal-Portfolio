@@ -1,1 +1,1 @@
-export {default} from './HireArea'
+export { default } from "./HireArea"

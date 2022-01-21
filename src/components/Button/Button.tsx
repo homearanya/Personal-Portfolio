@@ -33,6 +33,14 @@ const StyledButton = styled.button.attrs(() => ({ type: "button" }))<{
   }
 `
 
+export interface ButtonProps {
+  onClick?: () => void
+  whereTo: string
+  text: string
+  color: string
+  backgroundColor: string
+}
+
 export default function Button({
   whereTo,
   color,

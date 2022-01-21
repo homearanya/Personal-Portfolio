@@ -1,135 +1,135 @@
-import { markdownToSlate } from '../../serializers';
+import { markdownToSlate } from "../../serializers"
 
-const parser = markdownToSlate;
+const parser = markdownToSlate
 
-describe('Compile markdown to Slate Raw AST', () => {
-  it('should compile simple markdown', () => {
+describe("Compile markdown to Slate Raw AST", () => {
+  it("should compile simple markdown", () => {
     const value = `
 # H1
 
 sweet body
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile a markdown ordered list', () => {
+  it("should compile a markdown ordered list", () => {
     const value = `
 # H1
 
 1. yo
 2. bro
 3. fro
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile bulleted lists', () => {
+  it("should compile bulleted lists", () => {
     const value = `
 # H1
 
 * yo
 * bro
 * fro
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile multiple header levels', () => {
+  it("should compile multiple header levels", () => {
     const value = `
 # H1
 
 ## H2
 
 ### H3
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile horizontal rules', () => {
+  it("should compile horizontal rules", () => {
     const value = `
 # H1
 
 ---
 
 blue moon
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile horizontal rules', () => {
+  it("should compile horizontal rules", () => {
     const value = `
 # H1
 
 ---
 
 blue moon
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile soft breaks (double space)', () => {
+  it("should compile soft breaks (double space)", () => {
     const value = `
 blue moon  
 footballs
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile images', () => {
+  it("should compile images", () => {
     const value = `
 ![super](duper.jpg)
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile code blocks', () => {
+  it("should compile code blocks", () => {
     const value = `
 \`\`\`javascript
 var a = 1;
 \`\`\`
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile nested inline markup', () => {
+  it("should compile nested inline markup", () => {
     const value = `
 # Word
 
 This is **some *hot* content**
 
 perhaps **scalding** even
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile inline code', () => {
+  it("should compile inline code", () => {
     const value = `
 # Word
 
 This is some sweet \`inline code\` yo!
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile links', () => {
+  it("should compile links", () => {
     const value = `
 # Word
 
 How far is it to [Google](https://google.com) land?
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile plugins', () => {
+  it("should compile plugins", () => {
     const value = `
 ![test](test.png)
 
 {{< test >}}
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
 
-  it('should compile kitchen sink example', () => {
+  it("should compile kitchen sink example", () => {
     const value = `
 # An exhibit of Markdown
 
@@ -219,7 +219,7 @@ There's actually a lot more to Markdown than this. See the official
 introduction and syntax for more information. However, be aware that this is
 not using the official implementation, and this might work subtly differently
   in some of the little things.
-`;
-    expect(parser(value)).toMatchSnapshot();
-  });
-});
+`
+    expect(parser(value)).toMatchSnapshot()
+  })
+})

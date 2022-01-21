@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
-import { List } from 'immutable';
+import React from "react"
+import PropTypes from "prop-types"
+import ImmutablePropTypes from "react-immutable-proptypes"
+import styled from "@emotion/styled"
+import { css } from "@emotion/core"
+import { List } from "immutable"
 import {
   Toggle,
   Dropdown,
@@ -12,8 +12,8 @@ import {
   colors,
   transitions,
   lengths,
-} from 'netlify-cms-ui-default';
-import ToolbarButton from './ToolbarButton';
+} from "netlify-cms-ui-default"
+import ToolbarButton from "./ToolbarButton"
 
 const ToolbarContainer = styled.div`
   background-color: ${colors.textFieldBorder};
@@ -26,12 +26,12 @@ const ToolbarContainer = styled.div`
   min-height: 58px;
   transition: background-color ${transitions.main}, color ${transitions.main};
   color: ${colors.text};
-`;
+`
 
 const ToolbarDropdownWrapper = styled.div`
   display: inline-block;
   position: relative;
-`;
+`
 
 const ToolbarToggle = styled.div`
   flex-shrink: 0;
@@ -39,24 +39,24 @@ const ToolbarToggle = styled.div`
   align-items: center;
   font-size: 14px;
   margin: 0 10px;
-`;
+`
 
-const StyledToggle = ToolbarToggle.withComponent(Toggle);
+const StyledToggle = ToolbarToggle.withComponent(Toggle)
 
 const ToolbarToggleLabel = styled.span`
   display: inline-block;
   text-align: center;
   white-space: nowrap;
   line-height: 20px;
-  width: ${props => (props.offPosition ? '62px' : '70px')};
+  width: ${(props) => (props.offPosition ? "62px" : "70px")};
 
-  ${props =>
+  ${(props) =>
     props.isActive &&
     css`
       font-weight: 600;
       color: ${colors.active};
     `};
-`;
+`
 
 export default class Toolbar extends React.Component {
   static propTypes = {
@@ -74,12 +74,12 @@ export default class Toolbar extends React.Component {
     selectionHasMark: PropTypes.func,
     selectionHasBlock: PropTypes.func,
     selectionHasLink: PropTypes.func,
-  };
+  }
 
-  isHidden = button => {
-    const { buttons } = this.props;
-    return List.isList(buttons) ? !buttons.includes(button) : false;
-  };
+  isHidden = (button) => {
+    const { buttons } = this.props
+    return List.isList(buttons) ? !buttons.includes(button) : false
+  }
 
   render() {
     const {
@@ -94,7 +94,7 @@ export default class Toolbar extends React.Component {
       plugins,
       disabled,
       onSubmit,
-    } = this.props;
+    } = this.props
 
     return (
       <ToolbarContainer>
@@ -105,7 +105,7 @@ export default class Toolbar extends React.Component {
             icon="bold"
             onClick={onMarkClick}
             isActive={selectionHasMark}
-            isHidden={this.isHidden('bold')}
+            isHidden={this.isHidden("bold")}
             disabled={disabled}
           />
           <ToolbarButton
@@ -114,7 +114,7 @@ export default class Toolbar extends React.Component {
             icon="italic"
             onClick={onMarkClick}
             isActive={selectionHasMark}
-            isHidden={this.isHidden('italic')}
+            isHidden={this.isHidden("italic")}
             disabled={disabled}
           />
           <ToolbarButton
@@ -123,7 +123,7 @@ export default class Toolbar extends React.Component {
             icon="code"
             onClick={onMarkClick}
             isActive={selectionHasMark}
-            isHidden={this.isHidden('code')}
+            isHidden={this.isHidden("code")}
             disabled={disabled}
           />
           <ToolbarButton
@@ -132,7 +132,7 @@ export default class Toolbar extends React.Component {
             icon="link"
             onClick={onLinkClick}
             isActive={selectionHasLink}
-            isHidden={this.isHidden('link')}
+            isHidden={this.isHidden("link")}
             disabled={disabled}
           />
           <ToolbarButton
@@ -141,7 +141,7 @@ export default class Toolbar extends React.Component {
             icon="h1"
             onClick={onBlockClick}
             isActive={selectionHasBlock}
-            isHidden={this.isHidden('heading-one')}
+            isHidden={this.isHidden("heading-one")}
             disabled={disabled}
           />
           <ToolbarButton
@@ -150,7 +150,7 @@ export default class Toolbar extends React.Component {
             icon="h2"
             onClick={onBlockClick}
             isActive={selectionHasBlock}
-            isHidden={this.isHidden('heading-two')}
+            isHidden={this.isHidden("heading-two")}
             disabled={disabled}
           />
           <ToolbarButton
@@ -159,7 +159,7 @@ export default class Toolbar extends React.Component {
             icon="quote"
             onClick={onBlockClick}
             isActive={selectionHasBlock}
-            isHidden={this.isHidden('quote')}
+            isHidden={this.isHidden("quote")}
             disabled={disabled}
           />
           <ToolbarButton
@@ -168,7 +168,7 @@ export default class Toolbar extends React.Component {
             icon="code-block"
             onClick={onBlockClick}
             isActive={selectionHasBlock}
-            isHidden={this.isHidden('code-block')}
+            isHidden={this.isHidden("code-block")}
             disabled={disabled}
           />
           <ToolbarButton
@@ -177,7 +177,7 @@ export default class Toolbar extends React.Component {
             icon="list-bulleted"
             onClick={onBlockClick}
             isActive={selectionHasBlock}
-            isHidden={this.isHidden('bulleted-list')}
+            isHidden={this.isHidden("bulleted-list")}
             disabled={disabled}
           />
           <ToolbarButton
@@ -186,7 +186,7 @@ export default class Toolbar extends React.Component {
             icon="list-numbered"
             onClick={onBlockClick}
             isActive={selectionHasBlock}
-            isHidden={this.isHidden('numbered-list')}
+            isHidden={this.isHidden("numbered-list")}
             disabled={disabled}
           />
           <ToolbarDropdownWrapper>
@@ -209,8 +209,8 @@ export default class Toolbar extends React.Component {
                   .map((plugin, idx) => (
                     <DropdownItem
                       key={idx}
-                      label={plugin.get('label')}
-                      onClick={() => onSubmit(plugin.get('id'))}
+                      label={plugin.get("label")}
+                      onClick={() => onSubmit(plugin.get("id"))}
                     />
                   ))}
             </Dropdown>
@@ -224,6 +224,6 @@ export default class Toolbar extends React.Component {
           <ToolbarToggleLabel isActive={rawMode}>Markdown</ToolbarToggleLabel>
         </ToolbarToggle>
       </ToolbarContainer>
-    );
+    )
   }
 }

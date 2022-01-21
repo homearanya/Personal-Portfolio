@@ -1,12 +1,12 @@
-import unified from 'unified';
-import markdownToRemark from 'remark-parse';
-import remarkAllowHtmlEntities from '../remarkAllowHtmlEntities';
+import unified from "unified"
+import markdownToRemark from "remark-parse"
+import remarkAllowHtmlEntities from "../remarkAllowHtmlEntities"
 
-const process = markdown => {
+const process = (markdown) => {
   const mdast = unified()
     .use(markdownToRemark)
     .use(remarkAllowHtmlEntities)
-    .parse(markdown);
+    .parse(markdown)
 
   /**
    * The MDAST will look like:
@@ -17,11 +17,11 @@ const process = markdown => {
    *   ]}
    * ]}
    */
-  return mdast.children[0].children[0].value;
-};
+  return mdast.children[0].children[0].value
+}
 
-describe('remarkAllowHtmlEntities', () => {
-  it('should not decode HTML entities', () => {
-    expect(process('&lt;div&gt;')).toEqual('&lt;div&gt;');
-  });
-});
+describe("remarkAllowHtmlEntities", () => {
+  it("should not decode HTML entities", () => {
+    expect(process("&lt;div&gt;")).toEqual("&lt;div&gt;")
+  })
+})

@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
 const IconWrapper = styled.span`
   color: #007bff;
@@ -10,12 +10,15 @@ const IconWrapper = styled.span`
 `
 
 interface Props {
-  servicesArea: ServicesAreaProps
+  servicesArea: GatsbyTypes.MarkdownRemarkFrontmatterServicesArea
 }
 
 export default function ServicesArea(props: Props) {
   return (
-    <section className="single-section silver-bg services-area" id="services-area">
+    <section
+      className="single-section silver-bg services-area"
+      id="services-area"
+    >
       <div className="container">
         <div className="row">
           <div className="col-12">
@@ -25,23 +28,27 @@ export default function ServicesArea(props: Props) {
             </div>
           </div>
         </div>
-        <div className="row">
-          {props.servicesArea.services.map((service, index) => {
-            return (
-              <div key={index} className="col-12 col-md-6 col-lg-4">
-                <div className="single-service">
-                  <IconWrapper>
-                    <i className={service.iconClasses} />
-                  </IconWrapper>
-                  <div className="service-body">
-                    <h6 className="service-title">{service.serviceName}</h6>
-                    <p className="service-description">{service.blurb}</p>
+        {props.servicesArea.services && (
+          <div className="row">
+            {props.servicesArea.services.map((service, index) => {
+              return (
+                service && (
+                  <div key={index} className="col-12 col-md-6 col-lg-4">
+                    <div className="single-service">
+                      <IconWrapper>
+                        <i className={service.iconClasses} />
+                      </IconWrapper>
+                      <div className="service-body">
+                        <h6 className="service-title">{service.serviceName}</h6>
+                        <p className="service-description">{service.blurb}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+                )
+              )
+            })}
+          </div>
+        )}
       </div>
     </section>
   )

@@ -1,1 +1,1 @@
-export {default} from './TestimonialsArea'
+export { default } from "./TestimonialsArea"

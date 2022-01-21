@@ -1,11 +1,11 @@
-import { isEmpty, isArray, last, flatMap } from 'lodash';
+import { isEmpty, isArray, last, flatMap } from "lodash"
 
 /**
  * A Remark plugin for converting an MDAST to Slate Raw AST. Remark plugins
  * return a `transform` function that receives the MDAST as it's first argument.
  */
 export default function remarkToSlate() {
-  return transform;
+  return transform
 }
 
 function transform(node) {
@@ -17,49 +17,49 @@ function transform(node) {
    * references or footnotes.
    */
   const children =
-    !['strong', 'emphasis', 'delete'].includes(node.type) &&
+    !["strong", "emphasis", "delete"].includes(node.type) &&
     !isEmpty(node.children) &&
-    flatMap(node.children, transform).filter(val => val);
+    flatMap(node.children, transform).filter((val) => val)
 
   /**
    * Run individual nodes through the conversion factory.
    */
-  return convertNode(node, children);
+  return convertNode(node, children)
 }
 
 /**
  * Map of MDAST node types to Slate node types.
  */
 const typeMap = {
-  root: 'root',
-  paragraph: 'paragraph',
-  blockquote: 'quote',
-  code: 'code',
-  listItem: 'list-item',
-  table: 'table',
-  tableRow: 'table-row',
-  tableCell: 'table-cell',
-  thematicBreak: 'thematic-break',
-  link: 'link',
-  image: 'image',
-  shortcode: 'shortcode',
-};
+  root: "root",
+  paragraph: "paragraph",
+  blockquote: "quote",
+  code: "code",
+  listItem: "list-item",
+  table: "table",
+  tableRow: "table-row",
+  tableCell: "table-cell",
+  thematicBreak: "thematic-break",
+  link: "link",
+  image: "image",
+  shortcode: "shortcode",
+}
 
 /**
  * Map of MDAST node types to Slate mark types.
  */
 const markMap = {
-  strong: 'bold',
-  emphasis: 'italic',
-  delete: 'strikethrough',
-  inlineCode: 'code',
-};
+  strong: "bold",
+  emphasis: "italic",
+  delete: "strikethrough",
+  inlineCode: "code",
+}
 
 /**
  * Add nodes to a parent node only if `nodes` is truthy.
  */
 function addNodes(parent, nodes) {
-  return nodes ? { ...parent, nodes } : parent;
+  return nodes ? { ...parent, nodes } : parent
 }
 
 /**
@@ -67,29 +67,29 @@ function addNodes(parent, nodes) {
  */
 function createBlock(type, nodes, props = {}) {
   if (!isArray(nodes)) {
-    props = nodes;
-    nodes = undefined;
+    props = nodes
+    nodes = undefined
   }
 
-  const node = { object: 'block', type, ...props };
-  return addNodes(node, nodes);
+  const node = { object: "block", type, ...props }
+  return addNodes(node, nodes)
 }
 
 /**
  * Create a Slate Block node.
  */
 function createInline(type, props = {}, nodes) {
-  const node = { object: 'inline', type, ...props };
-  return addNodes(node, nodes);
+  const node = { object: "inline", type, ...props }
+  return addNodes(node, nodes)
 }
 
 /**
  * Create a Slate Raw text node.
  */
 function createText(value, data) {
-  const node = { object: 'text', data };
-  const leaves = isArray(value) ? value : [{ text: value }];
-  return { ...node, leaves };
+  const node = { object: "text", data }
+  const leaves = isArray(value) ? value : [{ text: value }]
+  return { ...node, leaves }
 }
 
 function processMarkNode(node, parentMarks = []) {
@@ -97,28 +97,30 @@ function processMarkNode(node, parentMarks = []) {
    * Add the current node's mark type to the marks collected from parent
    * mark nodes, if any.
    */
-  const markType = markMap[node.type];
-  const marks = markType ? [...parentMarks, { type: markMap[node.type] }] : parentMarks;
+  const markType = markMap[node.type]
+  const marks = markType
+    ? [...parentMarks, { type: markMap[node.type] }]
+    : parentMarks
 
-  const children = flatMap(node.children, childNode => {
+  const children = flatMap(node.children, (childNode) => {
     switch (childNode.type) {
       /**
        * If a text node is a direct child of the current node, it should be
        * set aside as a leaf, and all marks that have been collected in the
        * `marks` array should apply to that specific leaf.
        */
-      case 'html':
-      case 'text':
-        return { text: childNode.value, marks };
+      case "html":
+      case "text":
+        return { text: childNode.value, marks }
 
       /**
        * MDAST inline code nodes don't have children, just a text value, similar
        * to a text node, so it receives the same treatment as a text node, but we
        * first add the inline code mark to the marks array.
        */
-      case 'inlineCode': {
-        const childMarks = [...marks, { type: markMap['inlineCode'] }];
-        return { text: childNode.value, marks: childMarks };
+      case "inlineCode": {
+        const childMarks = [...marks, { type: markMap["inlineCode"] }]
+        return { text: childNode.value, marks: childMarks }
       }
 
       /**
@@ -127,40 +129,40 @@ function processMarkNode(node, parentMarks = []) {
        * flat array of leaves that can serve as the value of a single Slate Raw
        * text node.
        */
-      case 'strong':
-      case 'emphasis':
-      case 'delete':
-        return processMarkNode(childNode, marks);
+      case "strong":
+      case "emphasis":
+      case "delete":
+        return processMarkNode(childNode, marks)
 
       /**
        * Remaining nodes simply need mark data added to them, and to then be
        * added into the cumulative children array.
        */
       default:
-        return { ...childNode, data: { marks } };
+        return { ...childNode, data: { marks } }
     }
-  });
+  })
 
-  return children;
+  return children
 }
 
 function convertMarkNode(node) {
-  const slateNodes = processMarkNode(node);
+  const slateNodes = processMarkNode(node)
 
   const convertedSlateNodes = slateNodes.reduce((acc, node) => {
-    const lastConvertedNode = last(acc);
+    const lastConvertedNode = last(acc)
     if (node.text && lastConvertedNode && lastConvertedNode.leaves) {
-      lastConvertedNode.leaves.push(node);
+      lastConvertedNode.leaves.push(node)
     } else if (node.text) {
-      acc.push(createText([node]));
+      acc.push(createText([node]))
     } else {
-      acc.push(transform(node));
+      acc.push(transform(node))
     }
 
-    return acc;
-  }, []);
+    return acc
+  }, [])
 
-  return convertedSlateNodes;
+  return convertedSlateNodes
 }
 
 /**
@@ -176,13 +178,13 @@ function convertNode(node, nodes) {
      * Convert simple cases that only require a type and children, with no
      * additional properties.
      */
-    case 'root':
-    case 'paragraph':
-    case 'listItem':
-    case 'blockquote':
-    case 'tableRow':
-    case 'tableCell': {
-      return createBlock(typeMap[node.type], nodes);
+    case "root":
+    case "paragraph":
+    case "listItem":
+    case "blockquote":
+    case "tableRow":
+    case "tableCell": {
+      return createBlock(typeMap[node.type], nodes)
     }
 
     /**
@@ -192,10 +194,10 @@ function convertNode(node, nodes) {
      * maintain the same data as MDAST shortcode nodes. Slate void blocks must
      * contain a blank text node.
      */
-    case 'shortcode': {
-      const { data } = node;
-      const nodes = [createText('')];
-      return createBlock(typeMap[node.type], nodes, { data, isVoid: true });
+    case "shortcode": {
+      const { data } = node
+      const nodes = [createText("")]
+      return createBlock(typeMap[node.type], nodes, { data, isVoid: true })
     }
 
     /**
@@ -205,9 +207,9 @@ function convertNode(node, nodes) {
      * the same. HTML is treated as text because we never want to escape or
      * encode it.
      */
-    case 'text':
-    case 'html': {
-      return createText(node.value, node.data);
+    case "text":
+    case "html": {
+      return createText(node.value, node.data)
     }
 
     /**
@@ -218,12 +220,12 @@ function convertNode(node, nodes) {
      * the inline code value and a "code" mark, and place it in an array for use
      * as a Slate text node's children array.
      */
-    case 'inlineCode': {
+    case "inlineCode": {
       const leaf = {
         text: node.value,
-        marks: [{ type: 'code' }],
-      };
-      return createText([leaf]);
+        marks: [{ type: "code" }],
+      }
+      return createText([leaf])
     }
 
     /**
@@ -234,10 +236,10 @@ function convertNode(node, nodes) {
      * hierarchy has to be flattened and split into distinct text nodes with
      * their own set of marks.
      */
-    case 'strong':
-    case 'emphasis':
-    case 'delete': {
-      return convertMarkNode(node);
+    case "strong":
+    case "emphasis":
+    case "delete": {
+      return convertMarkNode(node)
     }
 
     /**
@@ -248,10 +250,17 @@ function convertNode(node, nodes) {
      * type for each heading level. Here we get the proper Slate node name based
      * on the MDAST node depth.
      */
-    case 'heading': {
-      const depthMap = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six' };
-      const slateType = `heading-${depthMap[node.depth]}`;
-      return createBlock(slateType, nodes);
+    case "heading": {
+      const depthMap = {
+        1: "one",
+        2: "two",
+        3: "three",
+        4: "four",
+        5: "five",
+        6: "six",
+      }
+      const slateType = `heading-${depthMap[node.depth]}`
+      return createBlock(slateType, nodes)
     }
 
     /**
@@ -261,11 +270,11 @@ function convertNode(node, nodes) {
      * convert that value into a nested child text node for Slate. We also carry
      * over the "lang" data property if it's defined.
      */
-    case 'code': {
-      const data = { lang: node.lang };
-      const text = createText(node.value);
-      const nodes = [text];
-      return createBlock(typeMap[node.type], nodes, { data });
+    case "code": {
+      const data = { lang: node.lang }
+      const text = createText(node.value)
+      const nodes = [text]
+      return createBlock(typeMap[node.type], nodes, { data })
     }
 
     /**
@@ -276,10 +285,10 @@ function convertNode(node, nodes) {
      * include the "start" property, which indicates the number an ordered list
      * starts at, if defined.
      */
-    case 'list': {
-      const slateType = node.ordered ? 'numbered-list' : 'bulleted-list';
-      const data = { start: node.start };
-      return createBlock(slateType, nodes, { data });
+    case "list": {
+      const slateType = node.ordered ? "numbered-list" : "bulleted-list"
+      const data = { start: node.start }
+      return createBlock(slateType, nodes, { data })
     }
 
     /**
@@ -289,9 +298,9 @@ function convertNode(node, nodes) {
      * slash from a Markdown document. In Slate, these are simply transformed to
      * line breaks within a text node.
      */
-    case 'break': {
-      const textNode = createText('\n');
-      return createInline('break', {}, [textNode]);
+    case "break": {
+      const textNode = createText("\n")
+      return createInline("break", {}, [textNode])
     }
 
     /**
@@ -299,8 +308,8 @@ function convertNode(node, nodes) {
      *
      * Thematic breaks are void nodes in the Slate schema.
      */
-    case 'thematicBreak': {
-      return createBlock(typeMap[node.type], { isVoid: true });
+    case "thematicBreak": {
+      return createBlock(typeMap[node.type], { isVoid: true })
     }
 
     /**
@@ -309,10 +318,10 @@ function convertNode(node, nodes) {
      * MDAST stores the link attributes directly on the node, while our Slate
      * schema references them in the data object.
      */
-    case 'link': {
-      const { title, url, data } = node;
-      const newData = { ...data, title, url };
-      return createInline(typeMap[node.type], { data: newData }, nodes);
+    case "link": {
+      const { title, url, data } = node
+      const newData = { ...data, title, url }
+      return createInline(typeMap[node.type], { data: newData }, nodes)
     }
 
     /**
@@ -322,10 +331,10 @@ function convertNode(node, nodes) {
      * of alt attribute data MDAST stores the link attributes directly on the
      * node, while our Slate schema references them in the data object.
      */
-    case 'image': {
-      const { title, url, alt, data } = node;
-      const newData = { ...data, title, alt, url };
-      return createInline(typeMap[node.type], { isVoid: true, data: newData });
+    case "image": {
+      const { title, url, alt, data } = node
+      const newData = { ...data, title, alt, url }
+      return createInline(typeMap[node.type], { isVoid: true, data: newData })
     }
 
     /**
@@ -334,9 +343,9 @@ function convertNode(node, nodes) {
      * Tables are parsed separately because they may include an "align"
      * property, which should be passed to the Slate node.
      */
-    case 'table': {
-      const data = { align: node.align };
-      return createBlock(typeMap[node.type], nodes, { data });
+    case "table": {
+      const data = { align: node.align }
+      return createBlock(typeMap[node.type], nodes, { data })
     }
   }
 }

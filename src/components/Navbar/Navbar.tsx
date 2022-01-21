@@ -1,21 +1,21 @@
-import React, {Component} from 'react'
-import Sticky from 'react-sticky-el'
-import {Link as ScrollTo} from 'react-scroll'
-import styled from 'styled-components'
-import {CSSTransition} from 'react-transition-group'
+import React, { Component } from "react"
+import Sticky from "react-sticky-el"
+import { Link as ScrollTo } from "react-scroll"
+import styled from "styled-components"
+import { CSSTransition } from "react-transition-group"
 
-import Menu from '../Menu'
-import Sidebar from '../Sidebar'
+import Menu from "../Menu"
+import Sidebar from "../Sidebar"
 
 const StyledScrollTo = styled(ScrollTo)`
   cursor: pointer;
 `
 
-const StyledSpan = styled.span<{isSticky: boolean}>`
+const StyledSpan = styled.span<{ isSticky: boolean }>`
   color: #fff;
   font-size: 20px;
   @media (min-width: 992px) {
-    color: ${props => (props.isSticky ? '#222' : '#fff')};
+    color: ${(props) => (props.isSticky ? "#222" : "#fff")};
     font-size: 24px;
   }
 `
@@ -29,8 +29,16 @@ const MenuDesktop = styled(Menu)`
 `
 
 let documentGlobal: Document
-if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+if (typeof window !== "undefined" && typeof document !== "undefined") {
   documentGlobal = document
+}
+
+interface NavBarProps {
+  sidebarAvatarImage: GatsbyTypes.MarkdownRemarkFrontmatterHeaderAreaSidebarAvatarImage
+  contactArea: GatsbyTypes.MarkdownRemarkFrontmatterContactArea
+  toggleSidebar: () => void
+  openSidebar: boolean
+  moreDetailsRef: React.RefObject<HTMLButtonElement>
 }
 
 interface State {
@@ -53,11 +61,11 @@ export class Navbar extends Component<NavBarProps, State> {
     this.menuRef = React.createRef()
   }
   handleClick = () => {
-    this.setState({toggleMenu: false})
+    this.setState({ toggleMenu: false })
   }
 
   toggleMenu = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         toggleMenu: !prevState.toggleMenu,
       }
@@ -65,22 +73,22 @@ export class Navbar extends Component<NavBarProps, State> {
   }
 
   onFixedToggle = () => {
-    this.setState(prevState => {
-      return {sticky: !prevState.sticky}
+    this.setState((prevState) => {
+      return { sticky: !prevState.sticky }
     })
   }
   componentDidMount() {
-    this.setState({toggleTransform: true})
+    this.setState({ toggleTransform: true })
   }
   componentWillMount = () => {
     if (documentGlobal) {
-      documentGlobal.addEventListener('mousedown', this.handleClickOutside)
+      documentGlobal.addEventListener("mousedown", this.handleClickOutside)
     }
   }
 
   componentWillUnmount() {
     if (documentGlobal) {
-      documentGlobal.removeEventListener('mousedown', this.handleClickOutside)
+      documentGlobal.removeEventListener("mousedown", this.handleClickOutside)
     }
   }
 
@@ -98,23 +106,23 @@ export class Navbar extends Component<NavBarProps, State> {
   render() {
     const stickyStyle = {
       zIndex: 1,
-      transform: '',
+      transform: "",
     }
     if (this.state.toggleTransform) {
-      stickyStyle.transform = 'none'
+      stickyStyle.transform = "none"
     }
-    let navClasses = 'navbar navbar-expand-lg navbar-dark fixed-top'
+    let navClasses = "navbar navbar-expand-lg navbar-dark fixed-top"
     if (this.state.sticky) {
-      navClasses = 'navbar navbar-expand-lg navbar-dark fixed-top scrolled'
+      navClasses = "navbar navbar-expand-lg navbar-dark fixed-top scrolled"
     }
-    let sidebarButtonClasses = 'hamburger hamburger--slider'
+    let sidebarButtonClasses = "hamburger hamburger--slider"
     if (this.props.openSidebar) {
-      sidebarButtonClasses = 'hamburger hamburger--slider is-active'
+      sidebarButtonClasses = "hamburger hamburger--slider is-active"
     }
-    let menuButtonClasses = 'navbar-toggler ml-auto collapsed '
+    let menuButtonClasses = "navbar-toggler ml-auto collapsed "
     let ariaExpanded = false
     if (this.state.toggleMenu) {
-      menuButtonClasses = 'navbar-toggler ml-auto'
+      menuButtonClasses = "navbar-toggler ml-auto"
       ariaExpanded = true
     }
     return (
@@ -126,8 +134,11 @@ export class Navbar extends Component<NavBarProps, State> {
               className="navbar-brand"
               data-scroll
               smooth={true}
-              duration={500}>
-              <StyledSpan isSticky={this.state.sticky}>Carlos Gonzalez</StyledSpan>
+              duration={500}
+            >
+              <StyledSpan isSticky={this.state.sticky}>
+                Carlos Gonzalez
+              </StyledSpan>
             </StyledScrollTo>
             <button
               className={menuButtonClasses}
@@ -138,7 +149,8 @@ export class Navbar extends Component<NavBarProps, State> {
               aria-expanded={ariaExpanded}
               aria-label="Toggle navigation"
               onClick={this.toggleMenu}
-              ref={this.menuButtonRef}>
+              ref={this.menuButtonRef}
+            >
               <span className="nav-btn">Menu</span>
             </button>
             <div className="d-flex flex-row  order-0 order-lg-1">
@@ -147,7 +159,8 @@ export class Navbar extends Component<NavBarProps, State> {
                   id="navBtn"
                   className={sidebarButtonClasses}
                   type="button"
-                  onClick={this.props.toggleSidebar}>
+                  onClick={this.props.toggleSidebar}
+                >
                   <span className="hamburger-box">
                     <span className="hamburger-inner" />
                   </span>
@@ -163,7 +176,8 @@ export class Navbar extends Component<NavBarProps, State> {
               in={this.state.toggleMenu}
               classNames="SlideInFromTop"
               timeout={300}
-              unmountOnExit>
+              unmountOnExit
+            >
               <Menu
                 mobile={true}
                 openMenu={this.state.toggleMenu}
@@ -176,7 +190,8 @@ export class Navbar extends Component<NavBarProps, State> {
               in={this.props.openSidebar}
               classNames="SlideInFromRight"
               timeout={300}
-              unmountOnExit>
+              unmountOnExit
+            >
               <Sidebar
                 toggleSidebar={this.props.toggleSidebar}
                 sidebarAvatarImage={this.props.sidebarAvatarImage}

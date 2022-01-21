@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 interface Props {
   filters: string[]
@@ -11,11 +11,12 @@ export default function PortfolioFilters(props: Props) {
     <ul
       className="list-inline filter-control d-flex justify-content-center"
       role="group"
-      aria-label="Filter Control">
+      aria-label="Filter Control"
+    >
       {props.filters.map((filter, index) => {
-        let tabClassName = 'list-inline-item'
+        let tabClassName = "list-inline-item"
         if (index === props.activeTab) {
-          tabClassName += ' tab-active'
+          tabClassName += " tab-active"
         }
 
         return (
@@ -23,7 +24,8 @@ export default function PortfolioFilters(props: Props) {
             key={index}
             className={tabClassName}
             data-group={filter}
-            onClick={() => props.handleClick(index)}>
+            onClick={() => props.handleClick(index)}
+          >
             {filter}
           </li>
         )

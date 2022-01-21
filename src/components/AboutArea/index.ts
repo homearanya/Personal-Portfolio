@@ -1,1 +1,1 @@
-export {default} from './AboutArea'
+export { default } from "./AboutArea"

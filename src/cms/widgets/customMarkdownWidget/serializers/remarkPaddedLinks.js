@@ -1,6 +1,14 @@
-import { find, findLast, startsWith, endsWith, trimStart, trimEnd, flatMap } from 'lodash';
-import u from 'unist-builder';
-import toString from 'mdast-util-to-string';
+import {
+  find,
+  findLast,
+  startsWith,
+  endsWith,
+  trimStart,
+  trimEnd,
+  flatMap,
+} from "lodash"
+import u from "unist-builder"
+import toString from "mdast-util-to-string"
 
 /**
  * Convert leading and trailing spaces in a link to single spaces outside of the
@@ -17,7 +25,7 @@ export default function remarkPaddedLinks() {
      * Because we're operating on link nodes and their children at once, we can
      * exit if the current node has no children.
      */
-    if (!node.children) return node;
+    if (!node.children) return node
 
     /**
      * Process a node's children if any of them are links. If a node is a link
@@ -29,31 +37,33 @@ export default function remarkPaddedLinks() {
      * only pass in the link nodes instead of the entire array of children, but
      * this seems unlikely to produce a noticeable perf gain.
      */
-    const hasLinkChild = node.children.some(child => child.type === 'link');
+    const hasLinkChild = node.children.some((child) => child.type === "link")
     const processedChildren = hasLinkChild
       ? flatMap(node.children, transformChildren)
-      : node.children;
+      : node.children
 
     /**
      * Run all children through the transform recursively.
      */
-    const children = processedChildren.map(transform);
+    const children = processedChildren.map(transform)
 
-    return { ...node, children };
+    return { ...node, children }
   }
 
   function transformChildren(node) {
-    if (node.type !== 'link') return node;
+    if (node.type !== "link") return node
 
     /**
      * Get the node's complete string value, check for leading and trailing
      * whitespace, and get nodes from each edge where whitespace is found.
      */
-    const text = toString(node);
-    const leadingWhitespaceNode = startsWith(text, ' ') && getEdgeTextChild(node);
-    const trailingWhitespaceNode = endsWith(text, ' ') && getEdgeTextChild(node, true);
+    const text = toString(node)
+    const leadingWhitespaceNode =
+      startsWith(text, " ") && getEdgeTextChild(node)
+    const trailingWhitespaceNode =
+      endsWith(text, " ") && getEdgeTextChild(node, true)
 
-    if (!leadingWhitespaceNode && !trailingWhitespaceNode) return node;
+    if (!leadingWhitespaceNode && !trailingWhitespaceNode) return node
 
     /**
      * Trim the edge nodes in place. Unified handles everything in a mutable
@@ -61,11 +71,11 @@ export default function remarkPaddedLinks() {
      * ASTs.
      */
     if (leadingWhitespaceNode) {
-      leadingWhitespaceNode.value = trimStart(leadingWhitespaceNode.value);
+      leadingWhitespaceNode.value = trimStart(leadingWhitespaceNode.value)
     }
 
     if (trailingWhitespaceNode) {
-      trailingWhitespaceNode.value = trimEnd(trailingWhitespaceNode.value);
+      trailingWhitespaceNode.value = trimEnd(trailingWhitespaceNode.value)
     }
 
     /**
@@ -73,12 +83,12 @@ export default function remarkPaddedLinks() {
      * or a text node. We filter out the false values before returning.
      */
     const nodes = [
-      leadingWhitespaceNode && u('text', ' '),
+      leadingWhitespaceNode && u("text", " "),
       node,
-      trailingWhitespaceNode && u('text', ' '),
-    ];
+      trailingWhitespaceNode && u("text", " "),
+    ]
 
-    return nodes.filter(val => val);
+    return nodes.filter((val) => val)
   }
 
   /**
@@ -92,16 +102,16 @@ export default function remarkPaddedLinks() {
      * TODO: watch https://github.com/istanbuljs/babel-plugin-istanbul/issues/95
      * when it is resolved then revert to ```const findFn = end ? findLast : find;```
      */
-    let findFn;
+    let findFn
     if (end) {
-      findFn = findLast;
+      findFn = findLast
     } else {
-      findFn = find;
+      findFn = find
     }
 
-    let edgeChildWithValue;
-    setEdgeChildWithValue(node);
-    return edgeChildWithValue;
+    let edgeChildWithValue
+    setEdgeChildWithValue(node)
+    return edgeChildWithValue
 
     /**
      * searchChildren checks a node and all of it's children deeply to find a
@@ -111,10 +121,10 @@ export default function remarkPaddedLinks() {
      */
     function setEdgeChildWithValue(child) {
       if (!edgeChildWithValue && child.value) {
-        edgeChildWithValue = child;
+        edgeChildWithValue = child
       }
-      findFn(child.children, setEdgeChildWithValue);
+      findFn(child.children, setEdgeChildWithValue)
     }
   }
-  return transform;
+  return transform
 }

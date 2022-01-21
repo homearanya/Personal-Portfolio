@@ -1,1 +1,1 @@
-export {default} from './ContactArea'
+export { default } from "./ContactArea"

@@ -1,1 +1,1 @@
-export {default} from './BlogArea'
+export { default } from "./BlogArea"

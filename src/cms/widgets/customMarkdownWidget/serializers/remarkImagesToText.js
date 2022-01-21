@@ -6,21 +6,23 @@
  * image.
  */
 export default function remarkImagesToText() {
-  return transform;
+  return transform
 
   function transform(node) {
-    const children = node.children.map(child => {
+    const children = node.children.map((child) => {
       if (
-        child.type === 'paragraph' &&
+        child.type === "paragraph" &&
         child.children.length === 1 &&
-        child.children[0].type === 'image'
+        child.children[0].type === "image"
       ) {
-        const { alt, url, title } = child.children[0];
-        const value = `![${alt || ''}](${url || ''}${title ? ` "${title}"` : ''})`;
-        child.children = [{ type: 'text', value }];
+        const { alt, url, title } = child.children[0]
+        const value = `![${alt || ""}](${url || ""}${
+          title ? ` "${title}"` : ""
+        })`
+        child.children = [{ type: "text", value }]
       }
-      return child;
-    });
-    return { ...node, children };
+      return child
+    })
+    return { ...node, children }
   }
 }

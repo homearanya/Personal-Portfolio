@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import styled from '@emotion/styled';
-import { ClassNames } from '@emotion/core';
-import { Editor as Slate } from 'slate-react';
-import Plain from 'slate-plain-serializer';
-import { debounce } from 'lodash';
-import { lengths, fonts } from 'netlify-cms-ui-default';
-import { editorStyleVars, EditorControlBar } from '../styles';
-import Toolbar from './Toolbar';
+import React from "react"
+import PropTypes from "prop-types"
+import ImmutablePropTypes from "react-immutable-proptypes"
+import styled from "@emotion/styled"
+import { ClassNames } from "@emotion/core"
+import { Editor as Slate } from "slate-react"
+import Plain from "slate-plain-serializer"
+import { debounce } from "lodash"
+import { lengths, fonts } from "netlify-cms-ui-default"
+import { editorStyleVars, EditorControlBar } from "../styles"
+import Toolbar from "./Toolbar"
 
 const styleStrings = {
   slateRaw: `
@@ -22,39 +22,39 @@ const styleStrings = {
     border-top: 0;
     margin-top: -${editorStyleVars.stickyDistanceBottom};
   `,
-};
+}
 
 const RawEditorContainer = styled.div`
   position: relative;
-`;
+`
 
 export default class RawEditor extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      value: Plain.deserialize(this.props.value || ''),
-    };
+      value: Plain.deserialize(this.props.value || ""),
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !this.state.value.equals(nextState.value);
+    return !this.state.value.equals(nextState.value)
   }
 
-  handleChange = change => {
+  handleChange = (change) => {
     if (!this.state.value.document.equals(change.value.document)) {
-      this.handleDocumentChange(change);
+      this.handleDocumentChange(change)
     }
-    this.setState({ value: change.value });
-  };
+    this.setState({ value: change.value })
+  }
 
   /**
    * When the document value changes, serialize from Slate's AST back to plain
    * text (which is Markdown) and pass that up as the new value.
    */
-  handleDocumentChange = debounce(change => {
-    const value = Plain.serialize(change.value);
-    this.props.onChange(value);
-  }, 150);
+  handleDocumentChange = debounce((change) => {
+    const value = Plain.serialize(change.value)
+    this.props.onChange(value)
+  }, 150)
 
   /**
    * If a paste contains plain text, deserialize it to Slate's AST and insert
@@ -63,23 +63,23 @@ export default class RawEditor extends React.Component {
    */
   handlePaste = (e, data, change) => {
     if (data.text) {
-      const fragment = Plain.deserialize(data.text).document;
-      return change.insertFragment(fragment);
+      const fragment = Plain.deserialize(data.text).document
+      return change.insertFragment(fragment)
     }
-  };
+  }
 
   handleToggleMode = () => {
-    this.props.onMode('visual');
-  };
+    this.props.onMode("visual")
+  }
 
   render() {
-    const { className, field } = this.props;
+    const { className, field } = this.props
     return (
       <RawEditorContainer>
         <EditorControlBar>
           <Toolbar
             onToggleMode={this.handleToggleMode}
-            buttons={field.get('buttons')}
+            buttons={field.get("buttons")}
             disabled
             rawMode
           />
@@ -91,7 +91,7 @@ export default class RawEditor extends React.Component {
                 className,
                 css`
                   ${styleStrings.slateRaw}
-                `,
+                `
               )}
               value={this.state.value}
               onChange={this.handleChange}
@@ -100,7 +100,7 @@ export default class RawEditor extends React.Component {
           )}
         </ClassNames>
       </RawEditorContainer>
-    );
+    )
   }
 }
 
@@ -110,4 +110,4 @@ RawEditor.propTypes = {
   className: PropTypes.string.isRequired,
   value: PropTypes.string,
   field: ImmutablePropTypes.map.isRequired,
-};
+}

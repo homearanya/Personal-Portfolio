@@ -1,1 +1,1 @@
-export {default} from './SchemaOrg'
+export { default } from "./SchemaOrg"

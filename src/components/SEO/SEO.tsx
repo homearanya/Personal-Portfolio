@@ -1,10 +1,10 @@
-import React from 'react'
-import Helmet from 'react-helmet'
+import React from "react"
+import Helmet from "react-helmet"
 
-import SchemaOrg from '../SchemaOrg'
+import SchemaOrg from "../SchemaOrg"
 
 interface Props {
-  siteMetadata: SiteMetadata
+  siteMetadata: GatsbyTypes.SiteSiteMetadata
 }
 
 export default function SEO(props: Props) {
@@ -70,7 +70,9 @@ export default function SEO(props: Props) {
           crossOrigin="anonymous"
         />
       </Helmet>
-      <SchemaOrg organization={organization} />
+      <SchemaOrg
+        organization={organization as GatsbyTypes.SiteSiteMetadataOrganization}
+      />
     </React.Fragment>
   )
 }

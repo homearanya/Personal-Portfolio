@@ -1,13 +1,14 @@
-import React from 'react'
-import {graphql} from 'gatsby'
-import styled from 'styled-components'
+import React from "react"
+import { graphql } from "gatsby"
+import styled from "styled-components"
+import { getSrc } from "gatsby-plugin-image"
 
-import Button from '../components/Button/Button'
+import Button from "../components/Button/Button"
 
-const StyledSection = styled.section<{backgroundImage: string}>`
+const StyledSection = styled.section<{ backgroundImage?: string }>`
   &&& {
     position: relative;
-    background-image: ${props => `url(${props.backgroundImage})`};
+    background-image: ${(props) => `url(${props.backgroundImage})`};
     height: 100vh;
     padding: 0;
     margin: auto;
@@ -22,18 +23,28 @@ const StyledSection = styled.section<{backgroundImage: string}>`
 `
 
 interface Props {
-  data: PageQueryData
+  data: GatsbyTypes.NotFoundPageQuery
 }
 
 export default function NotFound(props: Props) {
-  const {
-    notFoundArea: {notFoundImage, heading, blurb},
-  } = props.data.file.childMarkdownRemark.frontmatter
+  const notFoundImage =
+    props.data?.file?.childMarkdownRemark?.frontmatter?.notFoundArea
+      ?.notFoundImage
+  const heading =
+    props.data?.file?.childMarkdownRemark?.frontmatter?.notFoundArea?.heading
+  const blurb =
+    props.data?.file?.childMarkdownRemark?.frontmatter?.notFoundArea?.blurb
+
   return (
     <StyledSection
       className="single-section section-fixed-bg section-overlay-bg hire-area"
       id="hire-area"
-      backgroundImage={notFoundImage.image.childImageSharp.fluid.src}>
+      backgroundImage={
+        notFoundImage?.image?.childImageSharp?.gatsbyImageData
+          ? getSrc(notFoundImage.image.childImageSharp.gatsbyImageData)
+          : ""
+      }
+    >
       <div className="container">
         <div className="row text-center">
           <div className="col-12">
@@ -52,19 +63,9 @@ export default function NotFound(props: Props) {
   )
 }
 
-interface PageQueryData {
-  file: {
-    childMarkdownRemark: {
-      frontmatter: {
-        notFoundArea: NotFoundArea
-      }
-    }
-  }
-}
-
 export const pageQuery = graphql`
   query NotFoundPage {
-    file(relativePath: {eq: "index.md"}) {
+    file(relativePath: { eq: "index.md" }) {
       childMarkdownRemark {
         frontmatter {
           notFoundArea {
@@ -74,9 +75,7 @@ export const pageQuery = graphql`
               alt
               image {
                 childImageSharp {
-                  fluid(maxWidth: 1920, maxHeight: 902) {
-                    ...GatsbyImageSharpFluid
-                  }
+                  gatsbyImageData(layout: FULL_WIDTH)
                 }
               }
             }

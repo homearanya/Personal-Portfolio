@@ -1,37 +1,43 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import styled from '@emotion/styled';
-import { ClassNames } from '@emotion/core';
-import { get, isEmpty, debounce, uniq } from 'lodash';
-import { List } from 'immutable';
-import { Value, Document, Block, Text } from 'slate';
-import { Editor as Slate } from 'slate-react';
-import { slateToMarkdown, markdownToSlate, htmlToSlate } from '../serializers';
-import Toolbar from '../MarkdownControl/Toolbar';
-import { renderNode, renderMark } from './renderers';
-import { validateNode } from './validators';
-import plugins, { EditListConfigured } from './plugins';
-import onKeyDown from './keys';
-import visualEditorStyles from './visualEditorStyles';
-import { EditorControlBar } from '../styles';
+import React from "react"
+import PropTypes from "prop-types"
+import ImmutablePropTypes from "react-immutable-proptypes"
+import styled from "@emotion/styled"
+import { ClassNames } from "@emotion/core"
+import { get, isEmpty, debounce, uniq } from "lodash"
+import { List } from "immutable"
+import { Value, Document, Block, Text } from "slate"
+import { Editor as Slate } from "slate-react"
+import { slateToMarkdown, markdownToSlate, htmlToSlate } from "../serializers"
+import Toolbar from "../MarkdownControl/Toolbar"
+import { renderNode, renderMark } from "./renderers"
+import { validateNode } from "./validators"
+import plugins, { EditListConfigured } from "./plugins"
+import onKeyDown from "./keys"
+import visualEditorStyles from "./visualEditorStyles"
+import { EditorControlBar } from "../styles"
 
 const VisualEditorContainer = styled.div`
   position: relative;
-`;
+`
 
 const createEmptyRawDoc = () => {
-  const emptyText = Text.create('');
-  const emptyBlock = Block.create({ object: 'block', type: 'paragraph', nodes: [emptyText] });
-  return { nodes: [emptyBlock] };
-};
+  const emptyText = Text.create("")
+  const emptyBlock = Block.create({
+    object: "block",
+    type: "paragraph",
+    nodes: [emptyText],
+  })
+  return { nodes: [emptyBlock] }
+}
 
-const createSlateValue = rawValue => {
-  const rawDoc = rawValue && markdownToSlate(rawValue);
-  const rawDocHasNodes = !isEmpty(get(rawDoc, 'nodes'));
-  const document = Document.fromJSON(rawDocHasNodes ? rawDoc : createEmptyRawDoc());
-  return Value.create({ document });
-};
+const createSlateValue = (rawValue) => {
+  const rawDoc = rawValue && markdownToSlate(rawValue)
+  const rawDocHasNodes = !isEmpty(get(rawDoc, "nodes"))
+  const document = Document.fromJSON(
+    rawDocHasNodes ? rawDoc : createEmptyRawDoc()
+  )
+  return Value.create({ document })
+}
 
 export default class Editor extends React.Component {
   static propTypes = {
@@ -43,14 +49,14 @@ export default class Editor extends React.Component {
     value: PropTypes.string,
     field: ImmutablePropTypes.map.isRequired,
     getEditorComponents: PropTypes.func.isRequired,
-  };
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       value: createSlateValue(props.value),
       lastRawValue: props.value,
-    };
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -58,9 +64,9 @@ export default class Editor extends React.Component {
       this.props.value,
       this.state.lastRawValue,
       nextProps.value,
-      nextState.lastRawValue,
-    );
-    return !this.state.value.equals(nextState.value) || forcePropsValue;
+      nextState.lastRawValue
+    )
+    return !this.state.value.equals(nextState.value) || forcePropsValue
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -68,134 +74,144 @@ export default class Editor extends React.Component {
       prevProps.value,
       prevState.lastRawValue,
       this.props.value,
-      this.state.lastRawValue,
-    );
+      this.state.lastRawValue
+    )
 
     if (forcePropsValue) {
       this.setState({
         value: createSlateValue(this.props.value),
         lastRawValue: this.props.value,
-      });
+      })
     }
   }
 
   // If the old props/state values and new state value are all the same, and
   // the new props value does not match the others, the new props value
   // originated from outside of this widget and should be used.
-  shouldForcePropsValue(oldPropsValue, oldStateValue, newPropsValue, newStateValue) {
+  shouldForcePropsValue(
+    oldPropsValue,
+    oldStateValue,
+    newPropsValue,
+    newStateValue
+  ) {
     return (
       uniq([oldPropsValue, oldStateValue, newStateValue]).length === 1 &&
       oldPropsValue !== newPropsValue
-    );
+    )
   }
 
   handlePaste = (e, data, change) => {
-    if (data.type !== 'html' || data.isShift) {
-      return;
+    if (data.type !== "html" || data.isShift) {
+      return
     }
-    const ast = htmlToSlate(data.html);
-    const doc = Document.fromJSON(ast);
-    return change.insertFragment(doc);
-  };
+    const ast = htmlToSlate(data.html)
+    const doc = Document.fromJSON(ast)
+    return change.insertFragment(doc)
+  }
 
-  selectionHasMark = type => this.state.value.activeMarks.some(mark => mark.type === type);
-  selectionHasBlock = type => this.state.value.blocks.some(node => node.type === type);
+  selectionHasMark = (type) =>
+    this.state.value.activeMarks.some((mark) => mark.type === type)
+  selectionHasBlock = (type) =>
+    this.state.value.blocks.some((node) => node.type === type)
 
   handleMarkClick = (event, type) => {
-    event.preventDefault();
-    const resolvedChange = this.state.value
-      .change()
-      .focus()
-      .toggleMark(type);
-    this.ref.onChange(resolvedChange);
-    this.setState({ value: resolvedChange.value });
-  };
+    event.preventDefault()
+    const resolvedChange = this.state.value.change().focus().toggleMark(type)
+    this.ref.onChange(resolvedChange)
+    this.setState({ value: resolvedChange.value })
+  }
 
   handleBlockClick = (event, type) => {
-    event.preventDefault();
-    let { value } = this.state;
-    const { document: doc } = value;
-    const { unwrapList, wrapInList } = EditListConfigured.changes;
-    let change = value.change();
+    event.preventDefault()
+    let { value } = this.state
+    const { document: doc } = value
+    const { unwrapList, wrapInList } = EditListConfigured.changes
+    let change = value.change()
 
     // Handle everything except list buttons.
-    if (!['bulleted-list', 'numbered-list'].includes(type)) {
-      const isActive = this.selectionHasBlock(type);
-      change = change.setBlocks(isActive ? 'paragraph' : type);
+    if (!["bulleted-list", "numbered-list"].includes(type)) {
+      const isActive = this.selectionHasBlock(type)
+      change = change.setBlocks(isActive ? "paragraph" : type)
     }
 
     // Handle the extra wrapping required for list buttons.
     else {
-      const isSameListType = value.blocks.some(block => {
-        return !!doc.getClosest(block.key, parent => parent.type === type);
-      });
-      const isInList = EditListConfigured.utils.isSelectionInList(value);
+      const isSameListType = value.blocks.some((block) => {
+        return !!doc.getClosest(block.key, (parent) => parent.type === type)
+      })
+      const isInList = EditListConfigured.utils.isSelectionInList(value)
 
       if (isInList && isSameListType) {
-        change = change.call(unwrapList, type);
+        change = change.call(unwrapList, type)
       } else if (isInList) {
-        const currentListType = type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list';
-        change = change.call(unwrapList, currentListType).call(wrapInList, type);
+        const currentListType =
+          type === "bulleted-list" ? "numbered-list" : "bulleted-list"
+        change = change.call(unwrapList, currentListType).call(wrapInList, type)
       } else {
-        change = change.call(wrapInList, type);
+        change = change.call(wrapInList, type)
       }
     }
 
-    const resolvedChange = change.focus();
-    this.ref.onChange(resolvedChange);
-    this.setState({ value: resolvedChange.value });
-  };
+    const resolvedChange = change.focus()
+    this.ref.onChange(resolvedChange)
+    this.setState({ value: resolvedChange.value })
+  }
 
   hasLinks = () => {
-    return this.state.value.inlines.some(inline => inline.type === 'link');
-  };
+    return this.state.value.inlines.some((inline) => inline.type === "link")
+  }
 
   handleLink = () => {
-    let change = this.state.value.change();
+    let change = this.state.value.change()
 
     // If the current selection contains links, clicking the "link" button
     // should simply unlink them.
     if (this.hasLinks()) {
-      change = change.unwrapInline('link');
+      change = change.unwrapInline("link")
     } else {
-      const url = window.prompt('Enter the URL of the link');
+      const url = window.prompt("Enter the URL of the link")
 
       // If nothing is entered in the URL prompt, do nothing.
-      if (!url) return;
+      if (!url) return
 
       // If no text is selected, use the entered URL as text.
       if (change.value.isCollapsed) {
-        change = change.insertText(url).extend(0 - url.length);
+        change = change.insertText(url).extend(0 - url.length)
       }
 
-      change = change.wrapInline({ type: 'link', data: { url } }).collapseToEnd();
+      change = change
+        .wrapInline({ type: "link", data: { url } })
+        .collapseToEnd()
     }
 
-    this.ref.onChange(change);
-    this.setState({ value: change.value });
-  };
+    this.ref.onChange(change)
+    this.setState({ value: change.value })
+  }
 
-  handlePluginAdd = pluginId => {
-    const { getEditorComponents } = this.props;
-    const { value } = this.state;
-    const nodes = [Text.create('')];
+  handlePluginAdd = (pluginId) => {
+    const { getEditorComponents } = this.props
+    const { value } = this.state
+    const nodes = [Text.create("")]
 
     /**
      * Get default values for plugin fields.
      */
-    const pluginFields = getEditorComponents().getIn([pluginId, 'fields'], List());
+    const pluginFields = getEditorComponents().getIn(
+      [pluginId, "fields"],
+      List()
+    )
     const defaultValues = pluginFields
       .toMap()
-      .mapKeys((_, field) => field.get('name'))
-      .filter(field => field.has('default'))
-      .map(field => field.get('default'));
+      .mapKeys((_, field) => field.get("name"))
+      .filter((field) => field.has("default"))
+      .map((field) => field.get("default"))
 
     /**
      * Create new shortcode block with default values set.
      */
     const block = {
-      object: 'block',
-      type: 'shortcode',
+      object: "block",
+      type: "shortcode",
       data: {
         shortcode: pluginId,
         shortcodeNew: true,
@@ -203,47 +219,48 @@ export default class Editor extends React.Component {
       },
       isVoid: true,
       nodes,
-    };
-
-    let change = value.change();
-    const { focusBlock } = change.value;
-
-    if (focusBlock.text === '' && focusBlock.type === 'paragraph') {
-      change = change.setNodeByKey(focusBlock.key, block);
-    } else {
-      change = change.insertBlock(block);
     }
 
-    change = change.focus();
+    let change = value.change()
+    const { focusBlock } = change.value
 
-    this.ref.onChange(change);
-    this.setState({ value: change.value });
-  };
+    if (focusBlock.text === "" && focusBlock.type === "paragraph") {
+      change = change.setNodeByKey(focusBlock.key, block)
+    } else {
+      change = change.insertBlock(block)
+    }
+
+    change = change.focus()
+
+    this.ref.onChange(change)
+    this.setState({ value: change.value })
+  }
 
   handleToggle = () => {
-    this.props.onMode('raw');
-  };
+    this.props.onMode("raw")
+  }
 
-  handleDocumentChange = debounce(change => {
-    const { onChange } = this.props;
-    const raw = change.value.document.toJSON();
-    const markdown = slateToMarkdown(raw);
-    this.setState({ lastRawValue: markdown }, () => onChange(markdown));
-  }, 150);
+  handleDocumentChange = debounce((change) => {
+    const { onChange } = this.props
+    const raw = change.value.document.toJSON()
+    const markdown = slateToMarkdown(raw)
+    this.setState({ lastRawValue: markdown }, () => onChange(markdown))
+  }, 150)
 
-  handleChange = change => {
+  handleChange = (change) => {
     if (!this.state.value.document.equals(change.value.document)) {
-      this.handleDocumentChange(change);
+      this.handleDocumentChange(change)
     }
-    this.setState({ value: change.value });
-  };
+    this.setState({ value: change.value })
+  }
 
-  processRef = ref => {
-    this.ref = ref;
-  };
+  processRef = (ref) => {
+    this.ref = ref
+  }
 
   render() {
-    const { onAddAsset, getAsset, className, field, getEditorComponents } = this.props;
+    const { onAddAsset, getAsset, className, field, getEditorComponents } =
+      this.props
 
     return (
       <VisualEditorContainer>
@@ -260,7 +277,7 @@ export default class Editor extends React.Component {
             onSubmit={this.handlePluginAdd}
             onAddAsset={onAddAsset}
             getAsset={getAsset}
-            buttons={field.get('buttons')}
+            buttons={field.get("buttons")}
           />
         </EditorControlBar>
         <ClassNames>
@@ -270,7 +287,7 @@ export default class Editor extends React.Component {
                 className,
                 css`
                   ${visualEditorStyles}
-                `,
+                `
               )}
               value={this.state.value}
               renderNode={renderNode}
@@ -286,6 +303,6 @@ export default class Editor extends React.Component {
           )}
         </ClassNames>
       </VisualEditorContainer>
-    );
+    )
   }
 }

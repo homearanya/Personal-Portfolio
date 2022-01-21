@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
 const StyledFooter = styled.footer`
   &&& {
@@ -26,8 +26,8 @@ const StyledFooter = styled.footer`
   }
 `
 
-const IconWrapper = styled.div<{inputColor: string}>`
-  color: ${props => props.inputColor};
+const IconWrapper = styled.div<{ inputColor: string }>`
+  color: ${(props) => props.inputColor};
   display: inline-block;
   font-size: 24px;
   line-height: 24px;
@@ -44,9 +44,15 @@ export default function Footer() {
         {/* <MainFooter /> */}
         <div className="row mini-footer">
           <div className="col-12">
-            <p className="copyright-notice">Copyright © {currentYear} Carlos Gonzalez.</p>
+            <p className="copyright-notice">
+              Copyright © {currentYear} Carlos Gonzalez.
+            </p>
             <div className="social-medias">
-              <a href="https://github.com/homearanya" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/homearanya"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <IconWrapper inputColor="#6e5494">
                   <i className="fab fa-github" />
                 </IconWrapper>
@@ -54,7 +60,8 @@ export default function Footer() {
               <a
                 href="https://www.linkedin.com/in/carlos-david-gonzalez-vicente/"
                 target="_blank"
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+              >
                 <IconWrapper inputColor="#0077b5">
                   <i className="fab fa-linkedin" />
                 </IconWrapper>
@@ -62,7 +69,8 @@ export default function Footer() {
               <a
                 href="https://twitter.com/CGonzalezWebDev"
                 target="_blank"
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+              >
                 <IconWrapper inputColor="#1DA1F2">
                   <i className="fab fa-twitter" />
                 </IconWrapper>

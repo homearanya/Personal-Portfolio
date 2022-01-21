@@ -1,1 +1,1 @@
-export {default} from './ServicesArea'
+export { default } from "./ServicesArea"

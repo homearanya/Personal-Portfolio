@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
 const StyledSpan = styled.span`
   font-size: 40px;
@@ -24,7 +24,7 @@ const StyledMediaBody = styled.div`
 `
 
 declare interface Props {
-  contactArea: ContactAreaProps
+  contactArea: GatsbyTypes.MarkdownRemarkFrontmatterContactArea
 }
 
 export default function ContactDetails(props: Props) {
@@ -33,43 +33,48 @@ export default function ContactDetails(props: Props) {
       <div className="contact-info">
         <h4 className="info-title">Contact Info</h4>
         <p className="info-description">
-          Always available for freelance work if the right project comes along, Feel free to contact
-          me!
+          Always available for freelance work if the right project comes along,
+          Feel free to contact me!
         </p>
         <ul className="list-unstyled">
           <li>
             <a
               href={`https://maps.google.com/?q=${props.contactArea.address}`}
               target="_blank"
-              rel="noopener noreferrer">
+              rel="noopener noreferrer"
+            >
               <div className="media align-items-center">
                 <StyledSpan className="info-icon">
                   <i className="fas fa-map-marker-alt" />
                 </StyledSpan>
                 <StyledMediaBody className="media-body">
                   <h6 className="info-type">Location</h6>
-                  <span className="info-details">{props.contactArea.address}</span>
-                </StyledMediaBody>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href={`tel:${props.contactArea.phone.replace(/ /g, '')}`}>
-              <div className="media align-items-center">
-                <StyledSpan className="info-icon">
-                  <i className="fas fa-phone" />
-                </StyledSpan>
-                <StyledMediaBody className="media-body">
-                  <h6 className="info-type">Call Me</h6>
                   <span className="info-details">
-                    {/* <a href="tel:+441632967704"> */}
-                    {props.contactArea.phone}
-                    {/* </a> */}
+                    {props.contactArea.address}
                   </span>
                 </StyledMediaBody>
               </div>
             </a>
           </li>
+          {props.contactArea.phone && (
+            <li>
+              <a href={`tel:${props.contactArea.phone.replace(/ /g, "")}`}>
+                <div className="media align-items-center">
+                  <StyledSpan className="info-icon">
+                    <i className="fas fa-phone" />
+                  </StyledSpan>
+                  <StyledMediaBody className="media-body">
+                    <h6 className="info-type">Call Me</h6>
+                    <span className="info-details">
+                      {/* <a href="tel:+441632967704"> */}
+                      {props.contactArea.phone}
+                      {/* </a> */}
+                    </span>
+                  </StyledMediaBody>
+                </div>
+              </a>
+            </li>
+          )}
           <li>
             <a href={`mailto:${props.contactArea.email}`}>
               <div className="media align-items-center">

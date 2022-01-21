@@ -3,13 +3,14 @@ import styled from "styled-components"
 import Particles from "react-particles-js"
 import TextLoop from "react-text-loop"
 import { Link as ScrollTo } from "react-scroll"
+import { getSrc } from "gatsby-plugin-image"
 
 import Navbar from "../Navbar"
 import Button from "../Button"
 
 const StyledSection = styled.section<{
-  backgroundImageMobile: string
-  backgroundImage: string
+  backgroundImageMobile?: string
+  backgroundImage?: string
 }>`
   &&& {
     background-image: ${(props) => `url(${props.backgroundImageMobile})`};
@@ -34,8 +35,8 @@ const ScrollWrapper = styled.div`
 `
 
 interface Props {
-  headerArea: HeaderAreaProps
-  contactArea: ContactAreaProps
+  headerArea: GatsbyTypes.MarkdownRemarkFrontmatterHeaderArea
+  contactArea: GatsbyTypes.MarkdownRemarkFrontmatterContactArea
   toggleSidebar: () => void
   openSidebar: boolean
   moreDetailsRef: React.RefObject<HTMLButtonElement>
@@ -70,7 +71,9 @@ export default function Header(props: Props) {
   return (
     <header>
       <Navbar
-        sidebarAvatarImage={sidebarAvatarImage}
+        sidebarAvatarImage={
+          sidebarAvatarImage as GatsbyTypes.MarkdownRemarkFrontmatterHeaderAreaSidebarAvatarImage
+        }
         contactArea={props.contactArea}
         toggleSidebar={props.toggleSidebar}
         openSidebar={props.openSidebar}
@@ -80,8 +83,16 @@ export default function Header(props: Props) {
       <StyledSection
         className="header-area section-fixed-bg section-overlay-bg"
         id="header-area"
-        backgroundImage={heroImage.image.childImageSharp.fluid.src}
-        backgroundImageMobile={heroImageMobile.image.childImageSharp.fluid.src}
+        backgroundImage={
+          heroImage?.image?.childImageSharp?.gatsbyImageData
+            ? getSrc(heroImage.image.childImageSharp.gatsbyImageData)
+            : ""
+        }
+        backgroundImageMobile={
+          heroImageMobile?.image?.childImageSharp?.gatsbyImageData
+            ? getSrc(heroImageMobile.image.childImageSharp.gatsbyImageData)
+            : ""
+        }
       >
         <Particles
           className="particles-wrapper"

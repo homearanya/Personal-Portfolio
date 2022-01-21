@@ -1,18 +1,18 @@
-import React, {Component} from 'react'
-import {graphql} from 'gatsby'
+import React, { Component } from "react"
+import { graphql } from "gatsby"
 
-import Layout from '../components/Layout/Layout'
-import AboutArea from '../components/AboutArea/AboutArea'
-import ServicesArea from '../components/ServicesArea/ServicesArea'
-import HireArea from '../components/HireArea/HireArea'
-import PortfolioArea from '../components/PortfolioArea/PortfolioArea'
-import ContactArea from '../components/ContactArea/ContactArea'
+import Layout from "../components/Layout/Layout"
+import AboutArea from "../components/AboutArea/AboutArea"
+import ServicesArea from "../components/ServicesArea/ServicesArea"
+import HireArea from "../components/HireArea/HireArea"
+import PortfolioArea from "../components/PortfolioArea/PortfolioArea"
+import ContactArea from "../components/ContactArea/ContactArea"
 
 interface State {
   openSidebar: boolean
 }
 interface Props {
-  readonly data: PageQueryData
+  readonly data: GatsbyTypes.HomePageQuery
 }
 
 export default class HomePage extends Component<Props, State> {
@@ -27,7 +27,7 @@ export default class HomePage extends Component<Props, State> {
   }
 
   toggleSidebar() {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         openSidebar: !prevState.openSidebar,
       }
@@ -35,51 +35,59 @@ export default class HomePage extends Component<Props, State> {
   }
 
   render() {
-    const {siteMetadata} = this.props.data.site
-    const {
-      headerArea,
-      aboutArea,
-      servicesArea,
-      hireArea,
-      portfolioArea,
-      contactArea,
-    } = this.props.data.markdownRemark.frontmatter
+    const siteMetadata = this.props.data.site?.siteMetadata
+    const headerArea = this.props.data.markdownRemark?.frontmatter?.headerArea
+    const aboutArea = this.props.data.markdownRemark?.frontmatter?.aboutArea
+    const servicesArea =
+      this.props.data.markdownRemark?.frontmatter?.servicesArea
+    const hireArea = this.props.data.markdownRemark?.frontmatter?.hireArea
+    const portfolioArea =
+      this.props.data.markdownRemark?.frontmatter?.portfolioArea
+    const contactArea = this.props.data.markdownRemark?.frontmatter?.contactArea
+
     return (
       <Layout
-        siteMetadata={siteMetadata}
-        headerArea={headerArea}
-        contactArea={contactArea}
+        siteMetadata={siteMetadata as GatsbyTypes.SiteSiteMetadata}
+        headerArea={
+          headerArea as GatsbyTypes.MarkdownRemarkFrontmatterHeaderArea
+        }
+        contactArea={
+          contactArea as GatsbyTypes.MarkdownRemarkFrontmatterContactArea
+        }
         toggleSidebar={this.toggleSidebar}
         openSidebar={this.state.openSidebar}
-        moreDetailsRef={this.moreDetailsRef}>
+        moreDetailsRef={this.moreDetailsRef}
+      >
         <AboutArea
-          aboutArea={aboutArea}
+          aboutArea={
+            aboutArea as GatsbyTypes.MarkdownRemarkFrontmatterAboutArea
+          }
           toggleSidebar={this.toggleSidebar}
           moreDetailsRef={this.moreDetailsRef}
         />
-        <ServicesArea servicesArea={servicesArea} />
-        <HireArea hireArea={hireArea} />
-        <PortfolioArea portfolioArea={portfolioArea} />
-        <ContactArea contactArea={contactArea} />
+        <ServicesArea
+          servicesArea={
+            servicesArea as GatsbyTypes.MarkdownRemarkFrontmatterServicesArea
+          }
+        />
+        <HireArea
+          hireArea={hireArea as GatsbyTypes.MarkdownRemarkFrontmatterHireArea}
+        />
+        <PortfolioArea
+          portfolioArea={
+            portfolioArea as GatsbyTypes.MarkdownRemarkFrontmatterPortfolioArea
+          }
+        />
+        <ContactArea
+          contactArea={
+            contactArea as GatsbyTypes.MarkdownRemarkFrontmatterContactArea
+          }
+        />
       </Layout>
     )
   }
 }
-interface PageQueryData {
-  readonly site: {
-    siteMetadata: SiteMetadata
-  }
-  markdownRemark: {
-    frontmatter: {
-      headerArea: HeaderAreaProps
-      aboutArea: AboutAreaProps
-      servicesArea: ServicesAreaProps
-      hireArea: HireAreaProps
-      portfolioArea: PorfolioAreaProps
-      contactArea: ContactAreaProps
-    }
-  }
-}
+
 export const pageQuery = graphql`
   query HomePage($id: String!) {
     site {
@@ -102,16 +110,14 @@ export const pageQuery = graphql`
         siteUrl
       }
     }
-    markdownRemark(id: {eq: $id}) {
+    markdownRemark(id: { eq: $id }) {
       frontmatter {
         headerArea {
           heroImage {
             alt
             image {
               childImageSharp {
-                fluid(maxWidth: 1920, maxHeight: 924) {
-                  ...GatsbyImageSharpFluid_withWebp_noBase64
-                }
+                gatsbyImageData(placeholder: NONE, layout: FULL_WIDTH)
               }
             }
           }
@@ -119,9 +125,11 @@ export const pageQuery = graphql`
             alt
             image {
               childImageSharp {
-                fluid(maxWidth: 992) {
-                  ...GatsbyImageSharpFluid_withWebp_noBase64
-                }
+                gatsbyImageData(
+                  width: 992
+                  placeholder: NONE
+                  layout: CONSTRAINED
+                )
               }
             }
           }
@@ -129,9 +137,12 @@ export const pageQuery = graphql`
             alt
             image {
               childImageSharp {
-                fluid(maxWidth: 300, maxHeight: 300) {
-                  ...GatsbyImageSharpFluid_withWebp_noBase64
-                }
+                gatsbyImageData(
+                  width: 300
+                  height: 300
+                  placeholder: NONE
+                  layout: CONSTRAINED
+                )
               }
             }
           }
@@ -141,9 +152,7 @@ export const pageQuery = graphql`
             alt
             image {
               childImageSharp {
-                fluid(maxWidth: 540) {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
+                gatsbyImageData(width: 540, layout: CONSTRAINED)
               }
             }
           }
@@ -164,9 +173,7 @@ export const pageQuery = graphql`
             alt
             image {
               childImageSharp {
-                fluid(maxWidth: 1920, maxHeight: 902) {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
+                gatsbyImageData(layout: FULL_WIDTH)
               }
             }
           }
@@ -179,9 +186,7 @@ export const pageQuery = graphql`
               alt
               image {
                 childImageSharp {
-                  fluid(maxWidth: 450) {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
+                  gatsbyImageData(width: 450, layout: CONSTRAINED)
                 }
               }
             }

@@ -1,5 +1,5 @@
-import { colors, lengths, fonts } from 'netlify-cms-ui-default';
-import { editorStyleVars } from '../styles';
+import { colors, lengths, fonts } from "netlify-cms-ui-default"
+import { editorStyleVars } from "../styles"
 
 export default `
   position: relative;
@@ -113,4 +113,4 @@ export default `
     padding: 8px;
     text-align: left;
   }
-`;
+`

@@ -1,16 +1,14 @@
+const path = require("path")
+
 module.exports = {
-  parser: '@typescript-eslint/parser', // Specifies the ESLint parser
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
   ],
   settings: {
     react: {
-      version: 'detect',
+      version: "detect",
     },
   },
   env: {
@@ -18,26 +16,38 @@ module.exports = {
     node: true,
     es6: true,
   },
-  plugins: ['@typescript-eslint', 'react'],
+  plugins: ["react", "react-hooks", "prettier", "graphql"],
+  parser: "@babel/eslint-parser",
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
+    requireConfigFile: false,
+    babelOptions: {
+      presets: ["@babel/preset-react"],
     },
-    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module', // Allows for the use of imports
   },
   rules: {
-    'react/prop-types': 'off', // Disable prop-types as we use TypeScript for type checking
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/camelcase': 'off',
-    '@typescript-eslint/class-name-casing': 'off',
+    "react/prop-types": 0,
+    "react/display-name": 0,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "graphql/template-strings": [
+      "error",
+      {
+        env: "relay",
+        tagName: "graphql",
+        schemaJsonFilepath: path.resolve(
+          __dirname,
+          "src/__generated__gatsby-introspection.json"
+        ),
+      },
+    ],
   },
   overrides: [
     // Override some TypeScript rules just for .js files
     {
-      files: ['*.js'],
+      files: ["*.js"],
       rules: {
-        '@typescript-eslint/no-var-requires': 'off', //
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
       },
     },
   ],

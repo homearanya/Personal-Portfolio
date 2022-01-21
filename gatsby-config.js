@@ -25,6 +25,19 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-typegen`,
+      options: {
+        outputPath: `src/__generated__/gatsby-types.d.ts`,
+        emitSchema: {
+          "src/__generated__/gatsby-introspection.json": true,
+          "src/__generated__/gatsby-schema.graphql": true,
+        },
+        emitPluginDocuments: {
+          "src/__generated__/gatsby-plugin-documents.graphql": true,
+        },
+      },
+    },
+    {
       resolve: `gatsby-plugin-segment-js`,
       options: {
         // your segment write key for your production environment
@@ -102,39 +115,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-styled-components`,
-    {
-      resolve: `gatsby-plugin-favicon`,
-      options: {
-        logo: "./src/favicon.png",
-
-        // WebApp Manifest Configuration
-        appName: null, // Inferred with your package.json
-        appDescription: null,
-        developerName: null,
-        developerURL: null,
-        dir: "auto",
-        lang: "en-US",
-        background: "#fff",
-        theme_color: "#fff",
-        display: "standalone",
-        orientation: "any",
-        start_url: "/?homescreen=1",
-        version: "1.0",
-
-        icons: {
-          android: true,
-          appleIcon: true,
-          appleStartup: false,
-          coast: false,
-          favicons: true,
-          firefox: false,
-          opengraph: false,
-          twitter: false,
-          yandex: false,
-          windows: false,
-        },
-      },
-    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -229,12 +209,6 @@ module.exports = {
     //   },
     // },
     "gatsby-plugin-netlify-identity-widget",
-    {
-      resolve: "gatsby-plugin-netlify-cache",
-      options: {
-        cachePublic: true,
-      },
-    },
     "gatsby-plugin-netlify", // make sure to keep it last in the array
   ],
 }

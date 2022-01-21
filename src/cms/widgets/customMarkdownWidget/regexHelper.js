@@ -1,11 +1,11 @@
-import { last } from 'lodash';
+import { last } from "lodash"
 
 /**
  * Joins an array of regular expressions into a single expression, without
  * altering the received expressions.
  */
 export function joinPatternSegments(patterns) {
-  return patterns.map(p => p.source).join('');
+  return patterns.map((p) => p.source).join("")
 }
 
 /**
@@ -14,7 +14,7 @@ export function joinPatternSegments(patterns) {
  * that each expression is executed separately.
  */
 export function combinePatterns(patterns) {
-  return patterns.map(p => `(?:${p.source})`).join('|');
+  return patterns.map((p) => `(?:${p.source})`).join("|")
 }
 
 /**
@@ -47,20 +47,20 @@ export function replaceWhen(matchPattern, replaceFn, text, invertMatchPattern) {
      * Get the next match starting from the end of the last match or start of
      * string.
      */
-    const match = exp.exec(text);
-    const lastEntry = last(acc);
+    const match = exp.exec(text)
+    const lastEntry = last(acc)
 
     /**
      * `match` will be null if there are no matches.
      */
-    if (!match) return acc;
+    if (!match) return acc
 
     /**
      * If the match is at the beginning of the input string, normalize to a data
      * object with the `match` flag set to `true`, and add to the accumulator.
      */
     if (match.index === 0) {
-      addSubstring(acc, 0, match[0], true);
+      addSubstring(acc, 0, match[0], true)
     } else if (!lastEntry) {
       /**
        * If there are no entries in the accumulator, convert the substring before
@@ -68,31 +68,31 @@ export function replaceWhen(matchPattern, replaceFn, text, invertMatchPattern) {
        * push to the accumulator, followed by a data object for the matching
        * substring.
        */
-      addSubstring(acc, 0, match.input.slice(0, match.index));
-      addSubstring(acc, match.index, match[0], true);
+      addSubstring(acc, 0, match.input.slice(0, match.index))
+      addSubstring(acc, match.index, match[0], true)
     } else if (match.index === lastEntry.index + lastEntry.text.length) {
       /**
        * If the last entry in the accumulator immediately preceded the current
        * matched substring in the original string, just add the data object for
        * the matching substring to the accumulator.
        */
-      addSubstring(acc, match.index, match[0], true);
+      addSubstring(acc, match.index, match[0], true)
     } else {
       /**
        * Convert the substring before the match to a data object (without the
        * `match` flag set to true), followed by a data object for the matching
        * substring.
        */
-      const nextIndex = lastEntry.index + lastEntry.text.length;
-      const nextText = match.input.slice(nextIndex, match.index);
-      addSubstring(acc, nextIndex, nextText);
-      addSubstring(acc, match.index, match[0], true);
+      const nextIndex = lastEntry.index + lastEntry.text.length
+      const nextText = match.input.slice(nextIndex, match.index)
+      addSubstring(acc, nextIndex, nextText)
+      addSubstring(acc, match.index, match[0], true)
     }
 
     /**
      * Continue executing the expression.
      */
-    return split(exp, text, acc);
+    return split(exp, text, acc)
   }
 
   /**
@@ -100,24 +100,24 @@ export function replaceWhen(matchPattern, replaceFn, text, invertMatchPattern) {
    * array.
    */
   function addSubstring(arr, index, text, match = false) {
-    arr.push({ index, text, match });
+    arr.push({ index, text, match })
   }
 
   /**
    * Split the input string to an array of data objects, each representing a
    * matching or non-matching string.
    */
-  const acc = split(matchPattern, text, []);
+  const acc = split(matchPattern, text, [])
 
   /**
    * Process the trailing substring after the final match, if one exists.
    */
-  const lastEntry = last(acc);
-  if (!lastEntry) return replaceFn(text);
+  const lastEntry = last(acc)
+  if (!lastEntry) return replaceFn(text)
 
-  const nextIndex = lastEntry.index + lastEntry.text.length;
+  const nextIndex = lastEntry.index + lastEntry.text.length
   if (text.length > nextIndex) {
-    acc.push({ index: nextIndex, text: text.slice(nextIndex) });
+    acc.push({ index: nextIndex, text: text.slice(nextIndex) })
   }
 
   /**
@@ -125,13 +125,13 @@ export function replaceWhen(matchPattern, replaceFn, text, invertMatchPattern) {
    * matched strings with the replacement function. Modifies non-matches if
    * `invertMatchPattern` is truthy.
    */
-  const replacedText = acc.map(entry => {
-    const isMatch = invertMatchPattern ? !entry.match : entry.match;
-    return isMatch ? replaceFn(entry.text) : entry.text;
-  });
+  const replacedText = acc.map((entry) => {
+    const isMatch = invertMatchPattern ? !entry.match : entry.match
+    return isMatch ? replaceFn(entry.text) : entry.text
+  })
 
   /**
    * Return the joined string.
    */
-  return replacedText.join('');
+  return replacedText.join("")
 }

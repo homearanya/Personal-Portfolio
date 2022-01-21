@@ -1,8 +1,8 @@
-import React, {Component, ChangeEvent} from 'react'
-import {CSSTransition} from 'react-transition-group'
-import Loader from 'react-loader-spinner'
-import styled from 'styled-components'
-import axios from 'axios'
+import React, { Component, ChangeEvent } from "react"
+import { CSSTransition } from "react-transition-group"
+import { ThreeDots } from "react-loader-spinner"
+import styled from "styled-components"
+import axios from "axios"
 
 const HoneypotWrapper = styled.div`
   opacity: 0;
@@ -59,13 +59,15 @@ const LoaderContainer = styled.div`
   }
 `
 
-const StyledButton = styled.button.attrs(() => ({type: 'submit'}))<{loadSpinner: boolean}>`
+const StyledButton = styled.button.attrs(() => ({ type: "submit" }))<{
+  loadSpinner: boolean
+}>`
   &&& {
-    color: ${props => (props.loadSpinner ? '#007bff' : '#ffffff')};
+    color: ${(props) => (props.loadSpinner ? "#007bff" : "#ffffff")};
     background-color: #007bff;
     :hover,
     :focus {
-      color: ${props => (props.loadSpinner ? '#0056b3' : '#ffffff')};
+      color: ${(props) => (props.loadSpinner ? "#0056b3" : "#ffffff")};
       background-color: #0056b3 !important;
     }
   }
@@ -97,54 +99,56 @@ interface State {
 export class ContactForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    let subject = ''
+    let subject = ""
     if (this.props.subject) {
       subject = this.props.subject
     }
     this.state = {
-      nameaksljf: '',
-      reply_toaksljf: '',
+      nameaksljf: "",
+      reply_toaksljf: "",
       subjectaksljf: subject,
-      messageaksljf: '',
-      name: '',
-      reply_to: '',
-      subject: '',
-      message: '',
+      messageaksljf: "",
+      name: "",
+      reply_to: "",
+      subject: "",
+      message: "",
       submissionResult: null,
       loadSpinner: false,
     }
   }
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     switch (event.target.name) {
       // real fields
-      case 'nameaksljf':
-        this.setState({nameaksljf: event.target.value})
+      case "nameaksljf":
+        this.setState({ nameaksljf: event.target.value })
         break
-      case 'reply_toaksljf':
-        this.setState({reply_toaksljf: event.target.value})
+      case "reply_toaksljf":
+        this.setState({ reply_toaksljf: event.target.value })
         break
-      case 'subjectaksljf':
-        this.setState({subjectaksljf: event.target.value})
+      case "subjectaksljf":
+        this.setState({ subjectaksljf: event.target.value })
         break
-      case 'messageaksljf':
-        this.setState({messageaksljf: event.target.value})
+      case "messageaksljf":
+        this.setState({ messageaksljf: event.target.value })
         break
       // Honeypot fields
-      case 'name':
-        this.setState({name: event.target.value})
+      case "name":
+        this.setState({ name: event.target.value })
         break
-      case 'reply_to':
-        this.setState({reply_to: event.target.value})
+      case "reply_to":
+        this.setState({ reply_to: event.target.value })
         break
-      case 'subject':
-        this.setState({subject: event.target.value})
+      case "subject":
+        this.setState({ subject: event.target.value })
         break
-      case 'message':
-        this.setState({message: event.target.value})
+      case "message":
+        this.setState({ message: event.target.value })
         break
       default:
-        console.log('Wrong Case in Switch HandleChange')
+        console.log("Wrong Case in Switch HandleChange")
     }
   }
   sendEmail = () => {
@@ -158,15 +162,15 @@ export class ContactForm extends Component<Props, State> {
       // it's spam but let's pretend it's a successful submission!!!
       setTimeout(() => {
         this.setState({
-          nameaksljf: '',
-          reply_toaksljf: '',
-          subjectaksljf: '',
-          messageaksljf: '',
-          name: '',
-          reply_to: '',
-          subject: '',
-          message: '',
-          submissionResult: 'Thanks for the message. I’ll be in touch shortly.',
+          nameaksljf: "",
+          reply_toaksljf: "",
+          subjectaksljf: "",
+          messageaksljf: "",
+          name: "",
+          reply_to: "",
+          subject: "",
+          message: "",
+          submissionResult: "Thanks for the message. I’ll be in touch shortly.",
           loadSpinner: false,
         })
       }, 2000)
@@ -175,44 +179,45 @@ export class ContactForm extends Component<Props, State> {
     // It's not spam. Let's construct an HTTP request
     axios
       .post(
-        'https://nx8def1qkj.execute-api.us-east-1.amazonaws.com/production/static-site-mailer-carlos-web',
+        "https://nx8def1qkj.execute-api.us-east-1.amazonaws.com/production/static-site-mailer-carlos-web",
         JSON.stringify(this.state),
-        {headers: {'content-type': 'application//json; charset=UTF-8'}},
+        { headers: { "content-type": "application//json; charset=UTF-8" } }
       )
-      .then(response => {
-        const {status} = response
+      .then((response) => {
+        const { status } = response
         if (status === 200) {
           // The form submission was successful
           this.setState({
-            nameaksljf: '',
-            reply_toaksljf: '',
-            subjectaksljf: '',
-            messageaksljf: '',
-            submissionResult: 'Thanks for the message. I’ll be in touch shortly.',
+            nameaksljf: "",
+            reply_toaksljf: "",
+            subjectaksljf: "",
+            messageaksljf: "",
+            submissionResult:
+              "Thanks for the message. I’ll be in touch shortly.",
             loadSpinner: false,
           })
         } else {
           // The form submission failed
           this.setState({
-            submissionResult: 'Something went wrong',
+            submissionResult: "Something went wrong",
             loadSpinner: false,
           })
-          console.log('then', response)
+          console.log("then", response)
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
-          submissionResult: 'Something went wrong',
+          submissionResult: "Something went wrong",
           loadSpinner: false,
         })
-        console.log('catch', error)
+        console.log("catch", error)
       })
   }
 
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
 
-    this.setState({loadSpinner: true, submissionResult: null}, () => {
+    this.setState({ loadSpinner: true, submissionResult: null }, () => {
       this.sendEmail()
     })
   }
@@ -220,7 +225,11 @@ export class ContactForm extends Component<Props, State> {
   render() {
     return (
       <div className="col-12 col-lg-7">
-        <form className="contact-form" id="contact-form" onSubmit={this.handleSubmit}>
+        <form
+          className="contact-form"
+          id="contact-form"
+          onSubmit={this.handleSubmit}
+        >
           <h4 className="form-title">Message Me</h4>
           <div className="row">
             {/* Real Fields */}
@@ -341,7 +350,7 @@ export class ContactForm extends Component<Props, State> {
               <ButtonContainer className="contact-form-submit topmargin_20">
                 {this.state.loadSpinner && (
                   <LoaderContainer>
-                    <Loader type="ThreeDots" color="#ffffff" height={15} width={80} />
+                    <ThreeDots color="#ffffff" height={15} width={80} />
                   </LoaderContainer>
                 )}
                 <StyledButton
@@ -351,7 +360,8 @@ export class ContactForm extends Component<Props, State> {
                   className="btn button-scheme"
                   id="contact-submit"
                   loadSpinner={this.state.loadSpinner}
-                  disabled={this.state.loadSpinner}>
+                  disabled={this.state.loadSpinner}
+                >
                   Submit
                 </StyledButton>
               </ButtonContainer>
@@ -363,7 +373,8 @@ export class ContactForm extends Component<Props, State> {
             in={this.state.submissionResult !== null}
             classNames="slideUp"
             timeout={300}
-            unmountOnExit>
+            unmountOnExit
+          >
             <ResultMessage>
               <StyledText>{this.state.submissionResult}</StyledText>
             </ResultMessage>

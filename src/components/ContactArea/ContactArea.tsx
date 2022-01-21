@@ -1,15 +1,18 @@
-import React from 'react'
+import React from "react"
 
-import ContactForm from '../ContactForm'
-import ContactDetails from '../ContactDetails'
+import ContactForm from "../ContactForm"
+import ContactDetails from "../ContactDetails"
 
 declare interface Props {
-  contactArea: ContactAreaProps
+  contactArea: GatsbyTypes.MarkdownRemarkFrontmatterContactArea
 }
 
 export default function ContactArea(props: Props) {
   return (
-    <section className="single-section contact-area silver-bg" id="contact-area">
+    <section
+      className="single-section contact-area silver-bg"
+      id="contact-area"
+    >
       <div className="container">
         <div className="row">
           <div className="col-12">

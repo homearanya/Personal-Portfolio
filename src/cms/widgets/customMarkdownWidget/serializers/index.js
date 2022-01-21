@@ -1,25 +1,28 @@
-import { trimEnd } from 'lodash';
-import unified from 'unified';
-import u from 'unist-builder';
-import markdownToRemarkPlugin from 'remark-parse';
-import remarkToMarkdownPlugin from 'remark-stringify';
-import remarkToRehype from 'remark-rehype';
-import rehypeToHtml from 'rehype-stringify';
-import htmlToRehype from 'rehype-parse';
-import rehypeToRemark from 'rehype-remark';
-import remarkToRehypeShortcodes from './remarkRehypeShortcodes';
-import rehypePaperEmoji from './rehypePaperEmoji';
-import remarkAssertParents from './remarkAssertParents';
-import remarkPaddedLinks from './remarkPaddedLinks';
-import remarkWrapHtml from './remarkWrapHtml';
-import remarkToSlate from './remarkSlate';
-import remarkSquashReferences from './remarkSquashReferences';
-import { remarkParseShortcodes, createRemarkShortcodeStringifier } from './remarkShortcodes';
-import remarkEscapeMarkdownEntities from './remarkEscapeMarkdownEntities';
-import remarkStripTrailingBreaks from './remarkStripTrailingBreaks';
-import remarkAllowHtmlEntities from './remarkAllowHtmlEntities';
-import slateToRemark from './slateRemark';
-import { getEditorComponents } from '../MarkdownControl';
+import { trimEnd } from "lodash"
+import unified from "unified"
+import u from "unist-builder"
+import markdownToRemarkPlugin from "remark-parse"
+import remarkToMarkdownPlugin from "remark-stringify"
+import remarkToRehype from "remark-rehype"
+import rehypeToHtml from "rehype-stringify"
+import htmlToRehype from "rehype-parse"
+import rehypeToRemark from "rehype-remark"
+import remarkToRehypeShortcodes from "./remarkRehypeShortcodes"
+import rehypePaperEmoji from "./rehypePaperEmoji"
+import remarkAssertParents from "./remarkAssertParents"
+import remarkPaddedLinks from "./remarkPaddedLinks"
+import remarkWrapHtml from "./remarkWrapHtml"
+import remarkToSlate from "./remarkSlate"
+import remarkSquashReferences from "./remarkSquashReferences"
+import {
+  remarkParseShortcodes,
+  createRemarkShortcodeStringifier,
+} from "./remarkShortcodes"
+import remarkEscapeMarkdownEntities from "./remarkEscapeMarkdownEntities"
+import remarkStripTrailingBreaks from "./remarkStripTrailingBreaks"
+import remarkAllowHtmlEntities from "./remarkAllowHtmlEntities"
+import slateToRemark from "./slateRemark"
+import { getEditorComponents } from "../MarkdownControl"
 
 /**
  * This module contains all serializers for the Markdown widget.
@@ -58,70 +61,68 @@ import { getEditorComponents } from '../MarkdownControl';
 /**
  * Deserialize a Markdown string to an MDAST.
  */
-export const markdownToRemark = markdown => {
+export const markdownToRemark = (markdown) => {
   /**
    * Parse the Markdown string input to an MDAST.
    */
   const parsed = unified()
     .use(markdownToRemarkPlugin, { fences: true, commonmark: true })
-    .use(markdownToRemarkRemoveTokenizers, { inlineTokenizers: ['url'] })
+    .use(markdownToRemarkRemoveTokenizers, { inlineTokenizers: ["url"] })
     .use(remarkParseShortcodes, { plugins: getEditorComponents() })
     .use(remarkAllowHtmlEntities)
-    .parse(markdown);
+    .parse(markdown)
 
   /**
    * Further transform the MDAST with plugins.
    */
-  const result = unified()
-    .use(remarkSquashReferences)
-    .runSync(parsed);
+  const result = unified().use(remarkSquashReferences).runSync(parsed)
 
-  return result;
-};
+  return result
+}
 
 /**
  * Remove named tokenizers from the parser, effectively deactivating them.
  */
 function markdownToRemarkRemoveTokenizers({ inlineTokenizers }) {
   inlineTokenizers &&
-    inlineTokenizers.forEach(tokenizer => {
-      delete this.Parser.prototype.inlineTokenizers[tokenizer];
-    });
+    inlineTokenizers.forEach((tokenizer) => {
+      delete this.Parser.prototype.inlineTokenizers[tokenizer]
+    })
 }
 
 /**
  * Serialize an MDAST to a Markdown string.
  */
-export const remarkToMarkdown = obj => {
+export const remarkToMarkdown = (obj) => {
   /**
    * Rewrite the remark-stringify text visitor to simply return the text value,
    * without encoding or escaping any characters. This means we're completely
    * trusting the markdown that we receive.
    */
   function remarkAllowAllText() {
-    const Compiler = this.Compiler;
-    const visitors = Compiler.prototype.visitors;
-    visitors.text = node => node.value;
+    const Compiler = this.Compiler
+    const visitors = Compiler.prototype.visitors
+    visitors.text = (node) => node.value
   }
 
   /**
    * Provide an empty MDAST if no value is provided.
    */
-  const mdast = obj || u('root', [u('paragraph', [u('text', '')])]);
+  const mdast = obj || u("root", [u("paragraph", [u("text", "")])])
 
   const remarkToMarkdownPluginOpts = {
     commonmark: true,
     fences: true,
-    listItemIndent: '1',
+    listItemIndent: "1",
 
     /**
      * Settings to emulate the defaults from the Prosemirror editor, not
      * necessarily optimal. Should eventually be configurable.
      */
-    bullet: '*',
-    strong: '*',
-    rule: '-',
-  };
+    bullet: "*",
+    strong: "*",
+    rule: "-",
+  }
 
   /**
    * Transform the MDAST with plugins.
@@ -129,75 +130,76 @@ export const remarkToMarkdown = obj => {
   const processedMdast = unified()
     .use(remarkEscapeMarkdownEntities)
     .use(remarkStripTrailingBreaks)
-    .runSync(mdast);
+    .runSync(mdast)
 
   const markdown = unified()
     .use(remarkToMarkdownPlugin, remarkToMarkdownPluginOpts)
     .use(remarkAllowAllText)
     .use(createRemarkShortcodeStringifier({ plugins: getEditorComponents() }))
-    .stringify(processedMdast);
+    .stringify(processedMdast)
 
   /**
    * Return markdown with trailing whitespace removed.
    */
-  return trimEnd(markdown);
-};
+  return trimEnd(markdown)
+}
 
 /**
  * Convert Markdown to HTML.
  */
 export const markdownToHtml = (markdown, getAsset) => {
-  const mdast = markdownToRemark(markdown);
+  const mdast = markdownToRemark(markdown)
 
   const hast = unified()
     .use(remarkToRehypeShortcodes, { plugins: getEditorComponents(), getAsset })
     .use(remarkToRehype, { allowDangerousHTML: true })
-    .runSync(mdast);
+    .runSync(mdast)
 
   const html = unified()
-    .use(rehypeToHtml, { allowDangerousHTML: true, allowDangerousCharacters: true })
-    .stringify(hast);
+    .use(rehypeToHtml, {
+      allowDangerousHTML: true,
+      allowDangerousCharacters: true,
+    })
+    .stringify(hast)
 
-  return html;
-};
+  return html
+}
 
 /**
  * Deserialize an HTML string to Slate's Raw AST. Currently used for HTML
  * pastes.
  */
-export const htmlToSlate = html => {
-  const hast = unified()
-    .use(htmlToRehype, { fragment: true })
-    .parse(html);
+export const htmlToSlate = (html) => {
+  const hast = unified().use(htmlToRehype, { fragment: true }).parse(html)
 
   const mdast = unified()
     .use(rehypePaperEmoji)
     .use(rehypeToRemark, { minify: false })
-    .runSync(hast);
+    .runSync(hast)
 
   const slateRaw = unified()
     .use(remarkAssertParents)
     .use(remarkPaddedLinks)
     .use(remarkWrapHtml)
     .use(remarkToSlate)
-    .runSync(mdast);
+    .runSync(mdast)
 
-  return slateRaw;
-};
+  return slateRaw
+}
 
 /**
  * Convert Markdown to Slate's Raw AST.
  */
-export const markdownToSlate = markdown => {
-  const mdast = markdownToRemark(markdown);
+export const markdownToSlate = (markdown) => {
+  const mdast = markdownToRemark(markdown)
 
   const slateRaw = unified()
     .use(remarkWrapHtml)
     .use(remarkToSlate)
-    .runSync(mdast);
+    .runSync(mdast)
 
-  return slateRaw;
-};
+  return slateRaw
+}
 
 /**
  * Convert a Slate Raw AST to Markdown.
@@ -208,8 +210,8 @@ export const markdownToSlate = markdown => {
  * MDAST. The conversion is manual because Unified can only operate on Unist
  * trees.
  */
-export const slateToMarkdown = raw => {
-  const mdast = slateToRemark(raw, { shortcodePlugins: getEditorComponents() });
-  const markdown = remarkToMarkdown(mdast);
-  return markdown;
-};
+export const slateToMarkdown = (raw) => {
+  const mdast = slateToRemark(raw, { shortcodePlugins: getEditorComponents() })
+  const markdown = remarkToMarkdown(mdast)
+  return markdown
+}

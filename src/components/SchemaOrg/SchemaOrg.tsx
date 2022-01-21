@@ -1,23 +1,23 @@
-import React from 'react'
-import Helmet from 'react-helmet'
+import React from "react"
+import Helmet from "react-helmet"
 
 interface Props {
-  organization: Organization
+  organization: GatsbyTypes.SiteSiteMetadataOrganization
 }
 
-export default function SchemaOrg({organization}: Props) {
+export default function SchemaOrg({ organization }: Props) {
   const baseSchema = [
     {
-      '@context': 'http://schema.org',
-      '@type': 'Organization',
+      "@context": "http://schema.org",
+      "@type": "Organization",
       url: organization.url,
       name: organization.name,
       logo: organization.logo,
       contactPoint: [
         {
-          '@type': 'ContactPoint',
+          "@type": "ContactPoint",
           telephone: organization.phone,
-          contactType: 'customer support',
+          contactType: "customer support",
         },
       ],
     },
